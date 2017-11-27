@@ -12,15 +12,14 @@
 	<div class="row">
 
 		<div class="col-sm-8">
-
+			<h1>Chapter 3: Language Basics</h1>
+			<h2>Data Types</h2>
 			<div>
-				<h1>Chapter 3: Language Basics</h1>
-				<h2>Data Types</h2>
 				<h3>The Undefined Type</h3>
 				<p>Undefined data types are variables which have been declared, but not initialized.
 				</p>
 				<p>In this example, <em>var foo;</em> has been declared, but is uninitialized.</p>
-				<h3>Code</h3>
+				<h4>Code</h4>
 				<code>
 					&lt;script type="text/javascript"&gt;<br>
 						var foo;<br>
@@ -28,13 +27,39 @@
 					&lt;a href="#" onClick="event.preventDefault();alert(typeof foo);"&gt; Click here to see what data type <em>foo</em> is.&lt;/a&gt;
 				</code>
 
-				<h3>Working Example:</h3>
+				<h4>Working Example:</h4>
 				<script type="text/javascript">
 					var foo;
 				</script>
 
 				<a href="#" onClick="event.preventDefault();alert(typeof foo);">Click here to see what data type <em>foo</em> is.</a>
 			</div>
+
+			<div>
+				<h3>The Null Type</h3>
+				<p>A null data type is an object with no value.</p>
+				<p>In this example, <em>var bar</em> has been set to <em>null</em>. Alerting <em>typeof null</em> will return <em>object</em>.</p>
+				<h4>Code</h4>
+				<code>
+					&lt;script type="text/javascript"&gt;<br>
+						var bar = null;<br>
+					&lt;/script&gt;<br>
+					&lt;a href="#" onClick="event.preventDefault();alert(typeof bar);"&gt; Click here to see what data type <em>bar</em> is.&lt;/a&gt;
+				</code>
+
+				<h4>Working Example:</h4>
+				<script type="text/javascript">
+					var bar = null;
+				</script>
+
+				<a href="#" onClick="event.preventDefault();alert(typeof bar);">Click here to see what data type <em>bar</em> is.</a>
+			</div>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
 
 		</div>
 
