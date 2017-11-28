@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Testing How to Make Objects</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8 col-sm-push-2" id="dogs-info">
+			<h1>Testing How to Make Objects.</h1>
+			<h2>Here is a list of dogs, and some info about each of them.</h2>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	// K, so I guess this is how you define an object class in ES6
+	class fish {
+		
+		constructor (type,size) {
+			this.type = tuna;
+			this.size = size;
+		};
+
+	}
+
+	// Going to try and do it the ES3/ES5 way, looks like you just use a function
+	// I guess this is called a constructor function. It is a prototype for new objects, I think
+	function Dog (idNum,breedType,dogSize,playfulnessQuotient) {
+		this.id = idNum;
+		this.breed = breedType;
+		this.size = dogSize;
+		this.playfulness = function(){
+			return ((playfulnessQuotient / 10) * 100) + "%";
+		}();
+	}
+
+	var pup1 = new Dog(1,"Shitzu","small",7);
+	var pup3 = new Dog(3,"St. Bernard","large",4);
+	var pup10 = new Dog(10,"Goldren Retriever","large",6);
+
+	var theDogs = [pup1,pup3,pup10];
+
+	// Put the Puppers info on the page
+	var dogsInfo = "";
+	for (var i = 0; i < theDogs.length; i++) {
+		dogsInfo += "<h3>Dog number " + theDogs[i].id + " is a " + theDogs[i].breed + ".\n"+"It is a "+ theDogs[i].size + " dog that is " + theDogs[i].playfulness + " playful.</h3>\n";
+	}
+
+	dogsInfoHTML = document.getElementById('dogs-info').innerHTML
+	document.getElementById('dogs-info').innerHTML = dogsInfoHTML + dogsInfo;
+
+</script>
+
+</body>
+</html>

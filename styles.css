@@ -3,3 +3,10 @@ code {
 	display: inline-block;
 	padding: 15px;
 }
+
+#dogs-info h3 {
+	color: red;
+}
+#dogs-info h3:nth-child(even) {
+	color: green;
+}
