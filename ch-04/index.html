@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chapter 4: Variables, Scope, and Memory</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="container">
+
+	<div class="row">
+
+		<div class="col-sm-8">
+			<h1>Chapter 4: Variables, Scope, and Memory</h1>
+			<h2>Primitive and Reference Values</h2>
+			<div>
+				
+				<p>As the title suggests, there are two types of values a variable can hold: primitive values and reference values.</p>
+
+				<p>Primitive values are "atomic" pieces of data, like numbers and strings. When a primitive value is assigned to a variable, a copy of that value is assigned to the variable.</p>
+
+				<p>A reference value points to an object (it references it), so no values are copied/duplicated when an object is assigned to a new variable. If a reference value is copied into a new variable, and then one of the properties of the new variable are modified, any other variables which reference this object will also reflect this change.</p>
+
+			</div>
+			<div>
+				<h2>Argument Passing</h2>
+				<p>Undefined data types are variables which have been declared, but not initialized.
+				</p>
+				<p>In this example, <em>var foo;</em> has been declared, but is uninitialized.</p>
+				<h4>Code</h4>
+				<code>
+					&lt;script type="text/javascript"&gt;<br>
+					function setName(obj) {<br>
+					    obj.name = "Nicholas";<br>
+					    obj = new Object;<br>
+					    obj.name = "Greg";<br>
+					}<br>
+
+					var person = new Object();<br>
+					setName(person);<br>
+					alert(person.name);<br>
+					&lt;/script&gt;<br>
+				</code>
+
+				<h4>Working Example:</h4>
+				<script type="text/javascript">
+					function setName(obj) {
+					    obj.name = "Nicholas";
+					    obj = new Object;
+					    obj.name = "Greg";
+					}
+
+					var person = new Object();
+					setName(person);
+				</script>
+
+				<a href="#" onClick="event.preventDefault();alert(person.name);">Click here to see what the value of <em>person.name</em> is.</a> It is, indeed, "Nicholas" and not "Greg".
+			</div>
+			<br>
+
+</body>
+</html>
