@@ -13,9 +13,8 @@
 
 		<div class="col-sm-8">
 			<h1>Chapter 4: Variables, Scope, and Memory</h1>
-			<h2>Primitive and Reference Values</h2>
 			<div>
-				
+				<h2>Primitive and Reference Values</h2>				
 				<p>As the title suggests, there are two types of values a variable can hold: primitive values and reference values.</p>
 
 				<p>Primitive values are "atomic" pieces of data, like numbers and strings. When a primitive value is assigned to a variable, a copy of that value is assigned to the variable.</p>
@@ -58,6 +57,35 @@
 				<a href="#" onClick="event.preventDefault();alert(person.name);">Click here to see what the value of <em>person.name</em> is.</a> It is, indeed, "Nicholas" and not "Greg".
 			</div>
 			<br>
+
+			<div>
+				<h2>Determining Type</h2>
+				<p>The <em>typeof</em> works well with primitive values, but doesn't work well with reference types, since it will only tell you it's an object. For reference types, you want to use <em>instanceof</em> operator, which can tell you which type of object it is. Note, any reference type will always be an instance of Object.</p>
+				<h4>Code</h4>
+				<code>
+					&lt;script type="text/javascript"&gt;<br>
+					
+
+					var person = new Object();<br>
+					
+					alert(person instanceof Object);
+
+					&lt;/script&gt;<br>
+				</code>
+
+				<h4>Working Example:</h4>
+				<script type="text/javascript">
+
+					var person = new Object();
+					
+				</script>
+
+				<a href="#" onClick="event.preventDefault();alert(person instanceof Object);">Click here to see if <em>person</em> is an instance of Object.</a>
+			</div>
+			<br>
+
+		</div>
+	</div>
 
 </body>
 </html>
