@@ -93,35 +93,41 @@
 			<div>
 				<h2>Execution Context and Scope</h2>
 				<p><em>Context</em> refers to the code block in which something happens. The <em>scope chain</em> refers to the hierarchy of variables that a particular context has access to.</p>
-				<p>The <em>global</em> scope, also referred to as the <em>window</em>, is the outermost context, and is available to any execution other context. An execution context could be a function, a for loop, or any block of code that terminates. Below, I have created variables in three execution contexts:</p>
+				<p>The <em>global</em> scope, also referred to as the <em>window</em>, is the outermost context, and is available to any other execution context. <del>An execution context could be a function, a for loop, or any block of code that terminates.</del> In javascript, there are only two primary types of execution contexts: global and function. So, a code block such as as <em>if</em> statement does not have its own scope, and variables declared within it will be added to the global context. Below, I have created variables in three execution contexts:</p>
 				<h4>Code</h4>
 				<code>
 					&lt;script type="text/javascript"&gt;<br>
 					
-
+					<br>
 					var levelOne = 1;<br>
-
-					function nextLevel() {<br>
-						var levelTwo = 2;<br>
-
-						function anotherLevel(){<br>
-							var levelThree = 3;<br>
-						}<br>
-
+					<br>
+					function secondLevel() {<br>
+					<br>
+					&nbsp;&nbsp;&nbsp;var levelTwo = 2;<br>
+					<br>
+					&nbsp;&nbsp;&nbsp;function thirdLevel(){<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var levelThree = 3;<br>
+					&nbsp;&nbsp;&nbsp;}<br>
+					<br>
 					}<br>
-
+					<br>
 					&lt;/script&gt;<br>
 				</code>
+				<br><br>
+				<p>By clicking the links below, you can see that:</p>
+				<ol>
+					<li>The global context has access to the variable declared within it (var <em>levelOne</em>).</li>
+					<li>The function <em>secondLevel()</em> has access to the levelOne variable (in the global context), and the <em>levelTwo</em> variable declared within the secondLevel() function.</li>
+					<li>The <em>thirdLevel()</em> function, which is nested in the levelTwo() function, has access to the levelOne var, the levelTwo var, and the levelThree var declared inside thirdLevel().</li>
+				</ol><br>
 
 				<h4>Working Example:</h4>
-
-				<p>NOTE: You have to click #2 before #3 in order for #3 to work.</p>
 
 				<a href="#" onClick="event.preventDefault();firstLevel();">1. Click here to run the <em>firstLevel()</em> function.</a><br>
 
 				<a href="#" onClick="event.preventDefault();secondLevel(event);">2. Click here to run the <em>secondLevel()</em> function.</a><br>
 
-				<a href="#" id="level-three-btn">3. Click here to run the <em>secondLevel.thirdLevel()</em> function.</a>
+				<a href="#" id="level-three-btn">3. Click here to run the <em>thirdLevel()</em> function.</a>
 
 				<script type="text/javascript">
 
