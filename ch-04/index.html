@@ -128,6 +128,7 @@
 
 					var levelOne = 1;
 
+					// I run the secondLevel function here in order to add an eventlistener to the third button. I had to add the event listener inside the secondLevel function ir order to have access to the levelThree function contained within the levelTwo function. But, the level two function needs to run in order to bind that click event to the third button. So, that's why I run it here. Maybe there is a better way to do this, and I will learn it soon.
 					secondLevel();
 
 					function firstLevel() {
