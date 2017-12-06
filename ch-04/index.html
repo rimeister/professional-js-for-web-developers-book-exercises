@@ -93,7 +93,7 @@
 			<div>
 				<h2>Execution Context and Scope</h2>
 				<p><em>Context</em> refers to the code block in which something happens. The <em>scope chain</em> refers to the hierarchy of variables that a particular context has access to.</p>
-				<p>The <em>global</em> scope, also referred to as the <em>window</em>, is the outermost context, and is available to any other execution context. <del>An execution context could be a function, a for loop, or any block of code that terminates.</del> In javascript, there are only two primary types of execution contexts: global and function. So, a code block such as as <em>if</em> statement does not have its own scope, and variables declared within it will be added to the global context. Below, I have created variables in three execution contexts:</p>
+				<p>The <em>global</em> scope, also referred to as the <em>window</em>, is the outermost context, and is available to any other execution context. <del>An execution context could be a function, a for loop, or any block of code that terminates.</del> In javascript, there are only two primary types of execution contexts: global and function. So, a code block such as as <em>if</em> statement or a <em>for</em> loop does not have its own scope, and variables declared within it will be added to the global context. Below, I have created variables in three execution contexts:</p>
 				<h4>Code</h4>
 				<code>
 					&lt;script type="text/javascript"&gt;<br>
