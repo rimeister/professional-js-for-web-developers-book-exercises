@@ -67,8 +67,10 @@
 					
 
 					var person = new Object();<br>
+					var arr = new Array();<br>
 					
 					alert(person instanceof Object);
+					alert(arr instanceof Array);
 
 					&lt;/script&gt;<br>
 				</code>
@@ -77,13 +79,126 @@
 				<script type="text/javascript">
 
 					var person = new Object();
+					var arr = new Array();
 					
 				</script>
 
-				<a href="#" onClick="event.preventDefault();alert(person instanceof Object);">Click here to see if <em>person</em> is an instance of Object.</a>
+				<a href="#" onClick="event.preventDefault();alert(person instanceof Object);">Click here to see if <em>person</em> is an instance of Object.</a><br>
+
+				<a href="#" onClick="event.preventDefault();alert(person instanceof Object);">Click here to see if <em>arr</em> is an instance of Array.</a>
+
 			</div>
 			<br>
 
+			<div>
+				<h2>Execution Context and Scope</h2>
+				<p><em>Context</em> refers to the code block in which something happens. The <em>scope chain</em> refers to the hierarchy of variables that a particular context has access to.</p>
+				<p>The <em>global</em> scope, also referred to as the <em>window</em>, is the outermost context, and is available to any execution other context. An execution context could be a function, a for loop, or any block of code that terminates. Below, I have created variables in three execution contexts:</p>
+				<h4>Code</h4>
+				<code>
+					&lt;script type="text/javascript"&gt;<br>
+					
+
+					var levelOne = 1;<br>
+
+					function nextLevel() {<br>
+						var levelTwo = 2;<br>
+
+						function anotherLevel(){<br>
+							var levelThree = 3;<br>
+						}<br>
+
+					}<br>
+
+					&lt;/script&gt;<br>
+				</code>
+
+				<h4>Working Example:</h4>
+
+				<p>NOTE: You have to click #2 before #3 in order for #3 to work.</p>
+
+				<a href="#" onClick="event.preventDefault();firstLevel();">1. Click here to run the <em>firstLevel()</em> function.</a><br>
+
+				<a href="#" onClick="event.preventDefault();secondLevel(event);">2. Click here to run the <em>secondLevel()</em> function.</a><br>
+
+				<a href="#" id="level-three-btn">3. Click here to run the <em>secondLevel.thirdLevel()</em> function.</a>
+
+				<script type="text/javascript">
+
+
+					var levelOne = 1;
+
+					secondLevel();
+
+					function firstLevel() {
+						alert(levelOne);
+						if (typeof levelTwo !== "undefined") {	
+							alert(levelTwo);
+						} else {
+							alert("\"levelTwo\" is undefined")
+						}
+
+						if (typeof levelThree !== "undefined") {
+							alert(levelThree);
+						} else {	
+							alert("\"levelThree\" is undefined");
+						}
+
+					}
+
+					function secondLevel(event) {
+
+						var levelTwo = 2;
+						if (event && event.type === 'click') {
+
+							alert(levelOne);
+
+							if (typeof levelTwo !== "undefined") {	
+								alert(levelTwo);
+							} else {
+								alert("\"levelTwo\" is undefined")
+							}
+
+							if (typeof levelThree !== "undefined") {
+								alert(levelThree);
+							} else {	
+								alert("\"levelThree\" is undefined");
+							}
+
+						}
+
+						function thirdLevel(){
+
+							var levelThree = 3;
+
+							alert(levelOne);
+
+							if (typeof levelTwo !== "undefined") {	
+								alert(levelTwo);
+							} else {
+								alert("\"levelTwo\" is undefined")
+							}
+
+							if (typeof levelThree !== "undefined") {
+								alert(levelThree);
+							} else {	
+								alert("\"levelThree\" is undefined");
+							}
+
+						}
+
+						document.getElementById('level-three-btn').addEventListener('click', function(event){
+							event.preventDefault();
+						    thirdLevel();
+						});
+
+					}
+
+
+				</script>
+
+			</div>
+			<br>
 		</div>
 	</div>
 
