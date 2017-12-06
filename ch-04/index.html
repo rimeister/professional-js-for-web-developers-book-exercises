@@ -150,6 +150,7 @@
 					function secondLevel(event) {
 
 						var levelTwo = 2;
+						// Only run this if the function is called from a click even (i.e., the second button is clicked). I needed to put this here in order to prevent the alerts from firing when I run the function above in the global context.
 						if (event && event.type === 'click') {
 
 							alert(levelOne);
