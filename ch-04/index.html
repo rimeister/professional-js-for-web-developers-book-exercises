@@ -210,21 +210,71 @@
 			<div>
 				<h2>Scope Chain Augmentation</h2>
 				<p>This section discusses two methods of <em>augmenting</em> the scope chain: <em>try-catch</em> and <em>with</em>. To be honest, reading the explanation isn't enhhancing my understanding of what Scope Chain Augmentation is. I will have to also Google this one.</p>
+				<p>Did a little Googling to find out what a <em>try/catch</em> statement is. I actually watched a video in the <em>C</em> programming language. As I learned earlier today from the Lynda course <em>Programming Foundations Fundamentals</em>, javascript is a language evolved from C, and is a C-style language (using curly braces and semicolons at the end of code blocks).</p>
+				<p>A <em>try/catch</em> statement is intended to catch exceptions (i.e., errors), then do something if they encounter errors in the <em>try</em> statement. I guess I originally thought that the author meant that a try/catch statement was a way of augmenting the scope chain (as in, you could purposely use it to access variables that are out of scope), but now I see it is intended for catching errors, and maybe just has to augment the scope chain somehow in order to do that. Also, I see from some diagrams on the web, that the scope chain appears to be "zero-based", meaning that the first item is numbered 0. So, if you have a function, it's position in the scope chain (of that context) would be 0, and the global/window would be 1. This is demonstrated in this image I found online:</p>
+				<img src="writing-efficient-javascript-24-728.jpg"><br><br>
+				<p>So, it might be the case that it adds something else at position 0, which I think would be the front of the scope chain. I guess the same goes for the <em>with</em> statement.</p>
+				<p>Here's the <em>with</em> statement demo. I am not totally sure how the scope chain is being augmented here, though the book says "For the <em>with</em> statement, the specified object is added to the scope chain." (p. 93). "In this example, the <em>with</em> statement is acting on the location object, so <em>location</em> itself is added to the front of the scope chain." So... <em>location</em> is in position 0 in the scope chain?</p>
+				<p>The author seems to have also written a book called "Writing Efficient Javascript," in which he talks about this as well. Here is an image from <a href="http://archive.oreilly.com/pub/a/server-administration/excerpts/even-faster-websites/writing-efficient-javascript.html">the web page for that book</a> demonstrating scope chain:</p>
+				<img src="I_mediaobject7_d1e7080-web.png"><br><br>
+				<p>Here is a quote from that page explaining the diagram:</p>
+				<p><strong>"The scope chain for a given execution context typically remains unchanged during code execution. There are, however, two statements that temporarily augment the scope chain of an execution context. The first is the with statement, which is designed to allow easy access to object properties by making them appear as local variables. For example:"</strong><br>	
+				<br>
+				<em>	
+				var person = {<br>	
+				&nbsp;&nbsp;&nbsp;&nbsp;name: "Nicholas",<br>	
+				&nbsp;&nbsp;&nbsp;&nbsp;age: 30<br>	
+				};<br>	
+				<br>	
+				function displayInfo(){<br>	
+				&nbsp;&nbsp;&nbsp;&nbsp;var count = 5;<br>	
+				&nbsp;&nbsp;with(person){<br>	
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert(name + " is " + age);<br>	
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert("Count is " + count);<br>	
+				&nbsp;&nbsp;&nbsp;&nbsp;}<br>	
+				}<br>	
+				<br>	
+				displayInfo();<br>
+				</em>
+				<br><br>
+				<strong>"In this code, the person object is passed into a with block. This allows you to access the name and age properties as though they were locally defined. What actually happens, though, is that a new variable object is pushed to the front of the execution context's scope chain. This variable object contains all of the properties of the specified object (in this case, person) so that they can be accessed without using dot notation. Figure 7.4, "Scope chain augmentation using the with statement" shows how the scope chain for displayInfo is augmented while the with statement is being executed." (archive.oreilly.com)</strong></p>
+				<br><br>
+				<p>Think I have made sense of it now, especially after seeing the diagram and this other explanation I've found (from the same author).</p>
 				<h4>Code</h4>
 				<code>
 					&lt;script type="text/javascript"&gt;<br>
-					
+					    function buildUrl() {<br>
+			            var qs = "?debug=true";<br>
+			        <br>
+			            with(location){<br>
+			                var url = href + qs;   <br>     
+			            }<br>
+			        <br>
+			            return url;<br>
+			        }<br>
+					<br>
+			        var result = buildUrl();<br>
+			        alert(result);<br>
 					&lt;/script&gt;<br>
 				</code>
 
 				<h4>Working Example:</h4>
 				<script type="text/javascript">
-					
+					function buildUrl() {
+			            var qs = "?debug=true";
+			        
+			            with(location){
+			                var url = href + qs;        
+			            }
+			        
+			            return url;
+			        }
+
+			        var resultWith = buildUrl();
+			        
 				</script>
 
-				<a href="#" onClick="event.preventDefault();alert(person instanceof Object);">Click here to see if <em>person</em> is an instance of Object.</a><br>
-
-				<a href="#" onClick="event.preventDefault();alert(person instanceof Object);">Click here to see if <em>arr</em> is an instance of Array.</a>
+				<a href="#" onClick="event.preventDefault();alert(resultWith);">Click here to see what value <em>resultWith</em> has.</a>
 
 			</div>
 			<br>
