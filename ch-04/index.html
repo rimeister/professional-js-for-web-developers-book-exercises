@@ -278,6 +278,47 @@
 
 			</div>
 			<br>
+			<div>
+				<h2>No Block-Level Scopes</h2>
+				<p>As I clarified earlier, variables can't be scoped to blocks of code, other than functions. Variables defined within curly braces aren't necessarily destroyed after the code within the curly braces has executed. For example, if a variable is declared within an <em>if</em> statement, that variable is added to the global context, and is accessible after the conditional statement has run. In the case of a <em>for</em> loop, the induction variable (<em>var i</em>) actually becomes a global variable that is accessible after the loop has executed. The presenter in <a href="https://www.lynda.com/JavaScript-tutorials/Scope/604268/619464-4.html?org=torontopubliclibrary.ca">this video</a> suggests omitting <em>var</em> from the induction variable of the <em>for</em> statement, and instead, declaring <em>i</em> at the top of your javascript file with the other global variables, since it is going to be a global variable anyways.</p>
+				<h4>Code</h4>
+				<code>
+					if (1 < 2) {<br>
+						var j = "jay";<br>
+					}<br>
+					<br>
+			        alert(j);<br>
+			        <br>
+			        for (var i =0;i < 2; i++) {<br>
+			        console.log(i);<br>
+			    	}<br>
+			    	alert(i);
+					&lt;/script&gt;<br>
+				</code>
+
+				<h4>Working Example:</h4>
+				<script type="text/javascript">
+					
+					if (1 < 2) {
+						var j = "jay";
+					}
+					
+			        
+			        for (i =0;i < 2; i++) {
+			        console.log(i);
+			    	}
+			        
+				</script>
+
+				<a href="#" onClick="event.preventDefault();alert(j);">Click here to see what value <em>j</em> has.</a><br>
+				<a href="#" onClick="event.preventDefault();alert(i);">Click here to see what value <em>i</em> has.</a><br><br>
+
+			</div>
+			<br>
+			<div>
+				<h2>Variable Declaration</h2>
+				<p>Variables declared within a function using <em>var</em> are scoped to that function, but, if you initialize a variable inside a function without using <em>var</em>, that variable has global scope and can be accessed outside the function.</p>
+			</div>
 		</div>
 	</div>
 
