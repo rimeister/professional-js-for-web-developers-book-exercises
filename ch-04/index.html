@@ -24,21 +24,26 @@
 			</div>
 			<div>
 				<h2>Argument Passing</h2>
-				<p>Undefined data types are variables which have been declared, but not initialized.
-				</p>
-				<p>In this example, <em>var foo;</em> has been declared, but is uninitialized.</p>
+				<p>All arguments are passed into a function by value, not by reference. So, if you try to update an object that was passed into a function as an argument (such as changing obj.name, in the example below), it does not change the object that was passed in, it only changes the local object created inside the function. The local object is destroyed as soon as the function has finished executing. Huh, this is actually still confusing, because <em>obj</em> inside the function still references the original object, until they try to overwrite it by declaring it as a new object. It says it is copied into <em>obj</em>, but that obj and <em>person</em> both point to the same object. Using <em>new</em> makes <em>obj</em> point to a different object, an object which is destroyed after the function runs. So, what would the alternative be? What would a reference argument be? Don't know, might need to look it up.</p><br>
+
+				<p>Here's an <a href="https://stackoverflow.com/questions/373419/whats-the-difference-between-passing-by-reference-vs-passing-by-value">up-voted answer from Stack Overflow:</a></p>
+
+				<p><strong>"When a parameter is passed by reference, the caller and the callee use the same variable for the parameter. If the callee modifies the parameter variable, the effect is visible to the caller's variable.<br><br>
+				When a parameter is passed by value, the caller and callee have two independent variables with the same value. If the callee modifies the parameter variable, the effect is not visible to the caller."</strong></p>
+				<br>
+				<p>Okay, so, two indpendent variables. Changing what the local variable points to in the function doesn't change what the original variable points to. Think I got it.</p><br>
 				<h4>Code</h4>
 				<code>
-					&lt;script type="text/javascript"&gt;<br>
-					function setName(obj) {<br>
-					    obj.name = "Nicholas";<br>
-					    obj = new Object;<br>
-					    obj.name = "Greg";<br>
-					}<br>
+					&lt;script type="text/javascript"&gt;<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;function setName(obj) {<br>
+					    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj.name = "Nicholas";<br>
+					    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj = new Object;<br>
+					    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj.name = "Greg";<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
 
-					var person = new Object();<br>
-					setName(person);<br>
-					alert(person.name);<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;var person = new Object();<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;setName(person);<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;alert(person.name);<br><br>
 					&lt;/script&gt;<br>
 				</code>
 
@@ -321,8 +326,34 @@
 			</div>
 			<br>
 			<div>
-				<h2></h2>
+				<h2>Identifier Lookup</h2>
+				<p>The identifier lookup (for a variable name, for example) starts in the current/local context, the moves to the next context in the scope chain. If it finds it in the current context (inside a function, for example), the search stops. But, if it doesn't find it in the function, it continues along the chain to the next context (e.g., the window/global) to look for it there.</p>
 			</div>
+			<br>
+			<div>
+				<h2>Garbage Collection</h2>
+				<p>Javascript is a garbage-collected language, so it automatically marks variables for deletion once they go out of scope. The next time the garbage collector runs, those variables are deleted, and the memory they used is freed up again. This is referred to as <em>mark and sweep</em> garbage collection.</p>
+			</div>
+			<br>
+			<div>
+				<h2>Managing Memory</h2>
+				<p>Typically, you don't have to worry about memory management in Javascript, since it is a garbage-collected programming environment. But, because the amount of memory available to the browser is much less than other desktop applications, it can be useful to make sure that make sure that any <strong>global</strong> objects that you don't need anymore are set to <em>null</em> so that they will be garbage-collected. Below is an example of an object (created from a factory function), which is <em>derferenced</em> once it is no longer needed, it order to put it "out of context", so it will be marked for deletion next time garbage-collection occurs.</p><br>
+				<code>
+					&lt;script type="text/javascript"&gt;<br>
+					<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;function createPerson(name) {<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var localPerson = new Object();<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;localPerson.name = name;<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return localPerson; <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;var globalPerson = createPerson("Riley");<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;// Do something with globalPerson<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;globalPerson = null;
+					<br><br>
+					&lt;/script&gt;<br>
+				</code>
+			</div>
+			<br><br>
 		</div>
 	</div>
 
