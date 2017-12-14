@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Chapter 4: Variables, Scope, and Memory</title>
+	<title>Chapter 5: Reference Types</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../styles.css">
+	<meta charset="utf-8">
 </head>
 <body>
 
@@ -59,31 +60,123 @@
 
 				<h4>Working Example:</h4>
 				<script type="text/javascript">
-						var object1 = new Object(); 
-						object1.name = "obj1"; 
-						var object2 = { 
-						 name: "obj2"
-						}						
+					var object1 = new Object(); 
+					object1.name = "obj1"; 
+					var object2 = { 
+					 name: "obj2"
+					}						
 				</script>
 				<a href="#" onClick="event.preventDefault();alert(object1.name);"> Click here to see what the name property value of <em>object1</em> is.</a><br>
 				<a href="#" onClick="event.preventDefault();alert(object2.name);"> Click here to see what the name property value of <em>object2</em> is.</a>
 			</div><br>
 			<div>
-				<h2></h2>
-				<p></p><br>
+				<h2>The Array Type</h2>
+				<p>Probably the second-most used reference type after Object. Unlike other languages, it can contain mixed data types in JS. Length property can be accessed by using <em>.length</em>, but can also be set this way, it just adds more undefined items to the array. You can also shorten it by setting a length shorter than the array length.</p>
+				<p>The Array type has methods for adding to and removing from the arry, such as .push(), .pop(), .shift(), slice(), and methods for sorting the array, like .sort() and .reverse(). The book says the most powerful array method is .splice(), which can add items to the middle of the array. Like the String type, it has the .indexOf() and .lastIndexOf methods.</p>
+				<p>Perhaps, as Simon from the Lynda course said, one doesn't need to memorize these methods, but just have a good reference that lists them, to refer to when needed. <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">This page from the Mozilla Javascript reference has all the methods available for an array object</a>. There are, indeed, lots of them.</p>
+				<p>The book says that ES5 includes five iterative methods for arrays: every(), filter(), forEach(), map(), and some().</p>
+				<br>
 				<h4>Code</h4>
 				<code>
 					&lt;script type="text/javascript"&gt;<br><br>
-
+						var fruits = ['Apple', 'Banana'];<br>
+					var fruits = ['Banana','Apple']; // Create array using object literal notation<br>
+					console.log(fruits);<br>
+					<br>
+					fruits.push('Orange'); // Push an orange onto the end of the array<br>
+					console.log(fruits);<br>
+					<br>
+					fruits.length = 4; // Adds an undefined item to the end of the array<br>
+					console.log(fruits);<br>
+					<br>
+					fruits[3] = "Pear"; // Put "Pear" in index position 3<br>
+					console.log(fruits);<br>
+					<br>
+					fruits.sort(); // Sorts array according to unicode index of first letter of the string<br>
+					console.log(fruits);<br>
+					<br>
+					console.log("The item \"Orange\" is at index position " + fruits.indexOf("Orange"));<br>
+					<br>
+					var itemsWithP = fruits.filter(function(item,index,array){<br>
+						<br>
+						return ( item.toString().toLowerCase().indexOf("p") > -1 ); // Filter items have have a letter P in them<br>
+					});<br>
+					<br>
+					console.log(itemsWithP);<br>
+					<br>
+					var areAllItemsLengthGreaterThanFour = fruits.every(function(item,index,array){<br>
+						return (item.length > 4);<br>
+					});<br>
+					<br>
+					if (areAllItemsLengthGreaterThanFour) {<br>
+						console.log("All items have more than four characters");<br>
+					} else {<br>
+						console.log("Some items have less than four characters");<br>
+					}<br>
+					<br>
+					var areAllItemsLengthGreaterThanThree = fruits.every(function(item,index,array){<br>
+						return (item.length > 3);<br>
+					});<br>
+					<br>
+					if (areAllItemsLengthGreaterThanThree) {<br>
+						console.log("All items have more than three characters");<br>
+					} else {<br>
+						console.log("Some items have less than three characters");<br>
+					}<br>
 					&lt;/script&gt;<br>
 				</code><br><br>
 
 				<h4>Working Example:</h4>
 				<script type="text/javascript">
 					// Example code here
+					var fruits = ['Banana','Apple']; // Create array using object literal notation
+					console.log(fruits);
+
+					fruits.push('Orange'); // Push an orange onto the end of the array
+					console.log(fruits);
+
+					fruits.length = 4; // Adds an undefined item to the end of the array
+					console.log(fruits);
+
+					fruits[3] = "Pear"; // Put "Pear" in index position 3
+					console.log(fruits);
+
+					fruits.sort(); // Sorts array according to unicode index of first letter of the string
+					console.log(fruits);
+
+					console.log("The item \"Orange\" is at index position " + fruits.indexOf("Orange"));
+
+					var itemsWithP = fruits.filter(function(item,index,array){
+						
+						return ( item.toString().toLowerCase().indexOf("p") > -1 ); // Filter items have have a letter P in them
+					});
+
+					console.log(itemsWithP);
+
+					var areAllItemsLengthGreaterThanFour = fruits.every(function(item,index,array){
+						return (item.length > 4);
+					});
+
+					if (areAllItemsLengthGreaterThanFour) {
+						console.log("All items have more than four characters");
+					} else {
+						console.log("Some items have less than four characters");
+					}
+
+					var areAllItemsLengthGreaterThanThree = fruits.every(function(item,index,array){
+						return (item.length > 3);
+					});
+
+					if (areAllItemsLengthGreaterThanThree) {
+						console.log("All items have more than three characters");
+					} else {
+						console.log("Some items have less than three characters");
+					}
+
 				</script>
-				<a href="#" onClick="event.preventDefault();"> Click here to see <em>example</em> of this.</a>
-			</div><br>
+				<p>Look in the console to see the example working.</p>
+
+			<br>
 			<br>
 		</div>
 	</div>
