@@ -249,11 +249,16 @@
 					<script type="text/javascript">
 
 						var phrase = "Test this expression";
+						var phrase2 = "Also test this spare phrase, but with exec()";
 						var pattern1 = /press/;
-						var pattern2 = new RegExp("spa");
+						var pattern2 = new RegExp(".pa");
 
 						console.log("Is pattern1 (\"" + pattern1.source + "\") in the phrase \"" + phrase + "\"? " + pattern1.test(phrase));
 						console.log("Is pattern2 (\"" + pattern2.source + "\") in the phrase \"" + phrase + "\"? " + pattern2.test(phrase));
+
+						var matches = pattern2.exec(phrase2);
+
+						console.log(matches[0]);
 
 					</script>
 					<p>Look in the console to see the example working.</p>
