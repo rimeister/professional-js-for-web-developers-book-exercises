@@ -234,6 +234,30 @@
 					</script>
 					<p>Look in the console to see the example working.</p>
 				</div>
+				<br>
+				<div>
+					<h2>The RegExp Object</h2>
+					<p>A RegExp object contains a regular expression. The primary method you use with it (which is apparently innherited through the prototype chain) is <em>exec()</em>, but you can also use <em>test()</em>.</p>
+					<h4>Code</h4>
+					<code>
+						&lt;script type="text/javascript"&gt;<br><br>
+
+						&lt;/script&gt;<br>
+					</code><br><br>
+
+					<h4>Working Example:</h4>
+					<script type="text/javascript">
+
+						var phrase = "Test this expression";
+						var pattern1 = /press/;
+						var pattern2 = new RegExp("spa");
+
+						console.log("Is pattern1 (\"" + pattern1.source + "\") in the phrase \"" + phrase + "\"? " + pattern1.test(phrase));
+						console.log("Is pattern2 (\"" + pattern2.source + "\") in the phrase \"" + phrase + "\"? " + pattern2.test(phrase));
+
+					</script>
+					<p>Look in the console to see the example working.</p>
+				</div>
 
 			<br>
 			<br>
