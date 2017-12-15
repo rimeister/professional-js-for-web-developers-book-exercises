@@ -123,6 +123,12 @@
 					} else {<br>
 						console.log("Some items have less than three characters");<br>
 					}<br>
+					// Reduction methods for iterating some values in an array and building a new value from them (such as adding or subtracting them). Also has reduceRight(), which starts at the other end.<br><br>
+					var values = [2,4,5,1,2,4];<br>
+					var sum = values.reduce(function(prev,cur,index,array){<br>
+						return prev + cur;<br>
+					});<br>
+					console.log("The sum of these values is " + sum);<br>
 					&lt;/script&gt;<br>
 				</code><br><br>
 
@@ -173,8 +179,61 @@
 						console.log("Some items have less than three characters");
 					}
 
+					// Reduction methods for iterating some values in an array and building a new value from them (such as adding or subtracting them). Also has reduceRight(), which starts at the other end.
+					var values = [2,4,5,1,2,4];
+					var sum = values.reduce(function(prev,cur,index,array){
+						return prev + cur;
+					});
+					console.log("The sum of these values is " + sum);
+
+
 				</script>
 				<p>Look in the console to see the example working.</p>
+				</div>
+				<br>
+				<div>
+					<h2>The Date Object</h2>
+					<p>Instantiating a date object creates a reference with the current date and time. You can also create a Date object and pass in a specific date, using Date.parse(), or using the numeric format.</p>
+					<h4>Code</h4>
+					<code>
+						&lt;script type="text/javascript"&gt;<br><br>
+							var now = new Date();<br>
+							var then = new Date(Date.parse("May 24, 2017"));<br>
+							var y2k = new Date(2000,0);<br>
+							<br>
+							// Log the dates<br>
+							console.log(now); // Date 2017-12-15T16:42:33.011Z<br>
+							console.log(then); // Date 2017-05-24T04:00:00.000Z<br>
+							console.log(y2k); // Date 2000-01-01T05:00:00.000Z<br>
+						&lt;/script&gt;<br>
+					</code><br><br>
+
+					<h4>Working Example:</h4>
+					<script type="text/javascript">
+
+						// Function I found online for converting milliseconds to hours, minutes, etc.
+						function msToTYears(duration) {
+						    var years = duration/31536000000;
+						    years = Math.round(years * 100) / 100;
+						    return years;
+						}
+
+						var now = new Date();
+						var then = new Date(Date.parse("May 24, 2017"));
+						var y2k = new Date(2000,0);
+
+						//var timeSinceY2k = now - y2k;
+
+						// Log the dates
+						console.log(now);
+						console.log(then);
+						console.log(y2k);
+						var timeSinceY2k = msToTYears(now - y2k);
+						console.log("It has been " + timeSinceY2k + " years since Y2K.");
+
+					</script>
+					<p>Look in the console to see the example working.</p>
+				</div>
 
 			<br>
 			<br>
