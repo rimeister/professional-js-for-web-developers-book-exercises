@@ -241,7 +241,17 @@
 					<h4>Code</h4>
 					<code>
 						&lt;script type="text/javascript"&gt;<br><br>
+							var phrase = "Test this expression";
+							var phrase2 = "Also test this spare phrase, but with exec()";
+							var pattern1 = /press/;
+							var pattern2 = new RegExp(".pa");
 
+							console.log("Is pattern1 (\"" + pattern1.source + "\") in the phrase \"" + phrase + "\"? " + pattern1.test(phrase));
+							console.log("Is pattern2 (\"" + pattern2.source + "\") in the phrase \"" + phrase + "\"? " + pattern2.test(phrase));
+
+							var matches = pattern2.exec(phrase2);
+
+							console.log(matches[0]);
 						&lt;/script&gt;<br>
 					</code><br><br>
 
@@ -263,7 +273,47 @@
 					</script>
 					<p>Look in the console to see the example working.</p>
 				</div>
+				<br>
+				<div>
+					<h2>The Function Type</h2>
+					<p>In Javascript, functions are actually objects. "Because function names are nothing more than variables, functions can be used any place any other variable can be used." Becuase of this, you can pass a function into another function as an argument, or return a function from another function. Functions have an <em>arguments</em> object, and a <em>this</em> object.</p>
 
+					<p>The <em>arguments</em> object has a property named <em>callee</em>, which points to the function that owns the arguments.</p>
+
+					<p>The book says functions also have two more methods, named <em>call()</em> and <em>apply()</em>, but I'm not totally sure how to use them. Apparently they get used in conjunction with <em>this</em>.</p>
+
+					<h4>Code</h4>
+					<code>
+						&lt;script type="text/javascript"&gt;<br><br>
+						function sum(a,b){<br>	
+							// Logs the name of this function<br>	
+							console.log("The funciton is named " + arguments.callee); // "The funciton is named function sum(a,b){ ... etc."<br>	
+							return a + b;<br>	
+						}<br>	
+						<br>	
+						var addedTogether = sum(1,2);<br>	
+						&lt;/script&gt;<br>
+					</code><br><br>
+
+					<h4>Working Example:</h4>
+					<script type="text/javascript">
+
+						function sum(a,b){
+							// Logs the name of this function
+							console.log("The funciton is named " + arguments.callee); // The funciton is named function sum(a,b){ ... etc.
+							return a + b;
+						}
+
+						var addedTogether = sum(1,2);
+
+					</script>
+					<p>Look in the console to see the example working.</p>
+				</div>
+				<br>
+				<div>
+					<h2>Primitive Wrapper Type, Global Type, Math Type</h2>
+					<p>The rest of the chapter discusses these three, I might just skip writing examples for them for now, since it might be long and tedious to do so, and I might never get to Chapter 6.</p>
+				</div>
 			<br>
 			<br>
 		</div>
