@@ -311,8 +311,62 @@
 				</div>
 				<br>
 				<div>
-					<h2>Primitive Wrapper Type, Global Type, Math Type</h2>
-					<p>The rest of the chapter discusses these three, I might just skip writing examples for them for now, since it might be long and tedious to do so, and I might never get to Chapter 6.</p>
+					<h2>Primitive Wrapper Types: String, Boolean, Number</h2>
+					<p>"Primitive Wrapper" refers to the object that is created behind the scenes that allows you to use methods on primitive data types. Logically, you shouldn't be able to use methods on primitive data, since they shouldn't have them. But, you can because a wrapper instance is temporarily created.</p>
+				</div>
+				<code>
+						&lt;script type="text/javascript"&gt;<br><br>
+						var s1 = "some text";<br>
+						var s2 = s1.substring(2); // Using a method on a primitive <br>
+						<br>
+						// Behind the scenes, this happens:<br>
+						var s1 = new String("Some text"); <br>
+						var s2 = s1.substring(2); <br>
+						s1 = null; <br><br>
+						&lt;/script&gt;<br>
+				</code><br>
+				<br>
+				<div>
+					<h2>The Global Object</h2>
+					<p>The Global object is a sort of catch-all for the methods and properties that don't have an object. It is not directly accessible (so, I guess you couldn't do like <em>var siteURL = global.location;</em>). These include: URI encoding methods (encodeURI(), encodeURIComponent(), decodeURI(), etc.), and the eval() method. Notice that these methods aren't used on an object, they are just called like so: <em>var encodedUrl = encodeURI(uri);</em>.</p>
+					<p>According to this book, the <em>eval()</em> method is "perhaps the most powerful in the entire ECMAScript language" (p. 63). I can't figure out why it's powerful, or even useful, from reading this book.</p>
+					<p>The Window object: "Though ECMA-262 doesn't indicate a way to access the Global object directly, web browsers implement it such that <em>window</em> is the Global object's delegate.</p>
+					<br>
+					<code>
+						&lt;script type="text/javascript"&gt;<br><br>
+						eval("alert("hi")"); // evaluates as alert("hi"); <br>
+						<br>
+						// The window object <br>
+						var color = "red"; // Global variable called "color"<br>
+						function sayColor(){ <br>
+						alert(window.color); <br>
+						} <br>
+						window.sayColor(); // "red" <br>
+						&lt;/script&gt;<br>
+					</code>
+				</div>
+				<br>
+				<div>
+					<h2>The Math Object</h2>
+					<p>In Javascript, the Math object acts "as a common location for mathematical formulas and information. The computations available on the math object execute faster than if you were to write the computations in Javascript directly."</p>
+					<p>There are a bunch of methods and properties, such as the value of Pi (<em>Math.PI();</em>, the square root of 2 (<em>Math.SQRT2</em>),  the square root of &frac12; (<em>Math.SQRT2</em>), rounding methods (<em>Math.ceil();</em>, <em>Math.round();</em>, and <em>Math.floor();</em>), the <em>random();</em> method, and the square root method (<em>Math.sqrt();</em>, among several others.</p>
+					<p>In the example below, I will try the random() method. Clicking the link alerts a random method, converted to a whole number. Rationale: Math.random gives a value between 0 and 1, such as 0.215556. Multiplying it by ten gives it a value between 1 and 10 (e.g., 2.15556). Random() could also return a value that has 0 as the first number after the decminal, though (e.g., 0.06425488375893851), which when multiplied by 10, would be a number like 0.6425488375893851). Math.floor ALWAYS rounds the decimal value down -- in the instance of 0.642, it would be rounded down to 0. Since we want a number between 1 and 10 (not 0 and 9), we have to add 1 the resulting value. I'm not sure why we wouldn't just use Math.ceil(), and not add 1, but that's the way he does it.</p>
+					<br>
+					<code>
+						&lt;script type="text/javascript"&gt;<br><br>
+						function randNumb() { <br>
+							// Returns a random number between 1 and 10. <br>
+							alert( Math.floor( Math.random() * 10 ) ); <br>
+						} <br>
+						&lt;/script&gt;<br>
+					</code>
+					<script type="text/javascript">
+						function randNumb() {
+							// Returns a random number between 1 and 10.
+							alert( Math.floor( Math.random() * 10 ) );
+						}
+					</script>
+					<a href="#" onClick="event.preventDefault();randNumb();">Click here to get a random number between 1 and 10.</a> <br>
 				</div>
 			<br>
 			<br>
