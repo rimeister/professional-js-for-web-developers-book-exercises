@@ -22,6 +22,7 @@
 					<br>
 					<code>
 						&lt;script type="text/javascript"&gt;<br><br>
+						// Created with Object Literal notation <br>
 						var myObject = { <br>
 							prop1: "Boss", <br>
 							prop2: "Totes", <br>
@@ -32,6 +33,19 @@
 								alert("The number of characters in this variable is " + arg1.length); <br>
 							} <br>
 						} <br>
+						<br>
+						// Create a new instance of object <br>
+						var myObject2 = new Object(); <br>
+						<br>
+						myObject2.prop1 = "Boat"; <br>
+						myObject2.prop2 = "Toss"; <br>
+						myObject2.meth1 = function() { <br>
+							alert(this.prop1); <br>
+						}; <br>
+						myObject2.meth2 = function(arg1){ <br>
+							alert("The number of characters in this variable is " + arg1.length); <br>
+						}; <br>
+						<br>
 						&lt;/script&gt;<br>
 					</code><br><br>
 					<script type="text/javascript">
@@ -45,15 +59,74 @@
 								alert("The number of characters in this variable is " + arg1.length);
 							}
 						}
+
+						var myObject2 = new Object();
+
+						myObject2.prop1 = "Boat";
+						myObject2.prop2 = "Toss";
+						myObject2.meth1 = function() {
+							alert(this.prop1);
+						};
+						myObject2.meth2 = function(arg1){
+							alert("The number of characters in this variable is " + arg1.length);
+						};
 					</script>
-					<p><a href="#" onClick="event.preventDefault();alert(myObject.prop1);">Alert prop1</a> // Boss<br>
-					<a href="#" onClick="event.preventDefault();alert(myObject.prop2);">Alert prop2</a> // Totes<br>
-					<a href="#" onClick="event.preventDefault();myObject.meth1();">Run meth1(), no args.</a> // Alerts prop1<br>
-					<a href="#" onClick="event.preventDefault();myObject.meth2('buds');">Run meth2('buds').</a> // Alerts length of arg passed in.</p>
+					<p><a href="#" onClick="event.preventDefault();alert(myObject.prop1);">myObject: Alert prop1</a> // Boss<br>
+					<a href="#" onClick="event.preventDefault();alert(myObject.prop2);">myObject: Alert prop2</a> // Totes<br>
+					<a href="#" onClick="event.preventDefault();myObject.meth1();">myObject: Run meth1(), no args.</a> // Alerts prop1<br>
+					<a href="#" onClick="event.preventDefault();myObject.meth2('buds');">myObject: Run meth2('buds').</a> // Alerts length of arg passed in.</p>
+					<br>
+					<p><a href="#" onClick="event.preventDefault();alert(myObject2.prop1);">myObject2: Alert prop1</a> // Boat<br>
+					<a href="#" onClick="event.preventDefault();alert(myObject2.prop2);">myObject2: Alert prop2</a> // Toss<br>
+					<a href="#" onClick="event.preventDefault();myObject2.meth1();">myObject2: Run meth1(), no args.</a> // Alerts prop1<br>
+					<a href="#" onClick="event.preventDefault();myObject2.meth2('dudes');">myObject2: Run meth2('dudes').</a> // Alerts length of arg passed in.</p>
 					<br>
 
 				</div>
 				<br>
+				<div>
+					<h2>Types of Properties</h2>
+					<p>There are two types of properties: <em>data properties</em> and <em>accessor</em> properties.</p>
+					<h3>Data Properties</h3>
+					<p>Data Properties have a single location for the data value. This location gets updated when the value changes. A data property has four attributes describing it's behaviour: [[Configurable]], [[Enumerable]], [[Writable]], and [[Value]]:</p>
+					<ul>
+						<li><strong>[[Configurable]]</strong>: Indicates if the property can be deleted, have its properties changed, or can be changed into an accessor property. By default, this is true for all properties defined directly on an object (as in the last example).</li>
+						<li><strong>[[Enumerable]]</strong>: Indicates if the property will be returned in a for-in loop. By default, this is true.</li>
+						<li><strong>[Writable]]</strong>: Indicates if a property's value can be change. True, by default.</li>
+						<li><strong>[[Value]]</strong>: Contains the actual data value for the property.</li>
+					</ul>
+					<p>When a property is explicitly added to an object as in the previous examples, [[Configurable]], [[Enumerable]], and [[Writable]] are all set to true, while the [[Value]] is set to the assigned value."</p>
+					<p>Default property attributes are changed using the ES5 <em>Object.defineProperty()</em> method. This method accepts three arguments: the property to be added or modified, the name of the property, and the descriptor object.</p>
+					<br>
+					<code>
+						&lt;script type="text/javascript"&gt;<br><br>
+						O
+						&lt;/script&gt;<br>
+					</code><br><br>
+					<script type="text/javascript">
+						// JS here
+
+						var d = Object.getOwnPropertyDescriptor(myObject,"prop1");
+
+
+						function updateObjectProps() {
+							
+							Object.defineProperty(myObject, "prop1", {
+								writable: false,
+								value: "Blue"
+							});
+
+							d = Object.getOwnPropertyDescriptor(myObject,"prop1");
+
+							alert("The value of prop1 is now: " + myObject.prop1 + ". Is it writeable now? " + d.writable);
+
+						}
+					</script>
+					<a href="#" onClick="event.preventDefault();alert('The value of prop1 is currently: ' + myObject.prop1 + '. Is it writeable now? ' + d.writable);">Alert prop1 of myObject before Object.defineProperty();</a> <br>
+					<a href="#" onClick="event.preventDefault();updateObjectProps();">Alert prop1 of myObject after Object.defineProperty();</a> <br>
+
+				</div>
+			<br>
 				<div>
 					<h2></h2>
 					<p></p>
