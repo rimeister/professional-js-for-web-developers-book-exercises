@@ -88,7 +88,7 @@
 					<h2>Types of Properties</h2>
 					<p>There are two types of properties: <em>data properties</em> and <em>accessor</em> properties.</p>
 					<h3>Data Properties</h3>
-					<p>Data Properties have a single location for the data value. This location gets updated when the value changes. A data property has four attributes describing it's behaviour: [[Configurable]], [[Enumerable]], [[Writable]], and [[Value]]:</p>
+					<p>Data Properties have a single location for the data value. This location gets updated when the value changes. <strong>A data property has four attributes</strong> describing it's behaviour: [[Configurable]], [[Enumerable]], [[Writable]], and [[Value]]:</p>
 					<ul>
 						<li><strong>[[Configurable]]</strong>: Indicates if the property can be deleted, have its properties changed, or can be changed into an accessor property. By default, this is true for all properties defined directly on an object (as in the last example).</li>
 						<li><strong>[[Enumerable]]</strong>: Indicates if the property will be returned in a for-in loop. By default, this is true.</li>
@@ -97,17 +97,62 @@
 					</ul>
 					<p>When a property is explicitly added to an object as in the previous examples, [[Configurable]], [[Enumerable]], and [[Writable]] are all set to true, while the [[Value]] is set to the assigned value."</p>
 					<p>Default property attributes are changed using the ES5 <em>Object.defineProperty()</em> method. This method accepts three arguments: the property to be added or modified, the name of the property, and the descriptor object.</p>
+					<h3>Accessor Properties</h3>
+					<p>As mentioned above, there are two types of properties that an object has. The first type, discussed above, are <em>data properties</em>. The second type are called <em>Accessor Properties</em>. Accessor Properties do not contain data. Instead, they contain a <em>getter function</em> and/or a <em>setter function</em>. "When an accessor property is read from, the getter function is called, and it's the function's responsibility to return a valid value; when an accessor property is written to, a function is called with the new value, and that function must decide how to react to the data" (p. 177). "It's not possible to define an accessor property explicitly; you must use <em>Object.defineProperty();</em>" (p. 177). The underscore before the property name is a common notation that indicates that the property is not meant to be accessed outside of the object's methods.</p>
 					<br>
+					<p>Accessor properties have four attributes:</p>
+					<ul>
+						<li><strong>[[Configurable]]</strong>: Indicates if the property can be deleted, have its properties changed, or can be changed into an accessor property. By default, this is true for all properties defined directly on an object (as in the last example).</li>
+						<li><strong>[[Enumerable]]</strong>: Indicates if the property will be returned in a for-in loop. By default, this is true.</li>
+						<li><strong>[[Get]]</strong>: The function to call when the property is read from.</li>
+						<li><strong>[[Set]]</strong>: The function to call when the property is written to.</li>
+					</ul><br>
 					<code>
 						&lt;script type="text/javascript"&gt;<br><br>
-						O
+						// data property example<br>
+						var d = Object.getOwnPropertyDescriptor(myObject,"prop1");<br>
+<br>
+						function updateObjectProps() {<br>
+							<br>
+							Object.defineProperty(myObject, "prop1", {<br>
+								writable: false,<br>
+								value: "Blue"<br>
+							});<br>
+<br>
+							d = Object.getOwnPropertyDescriptor(myObject,"prop1");<br>
+<br>
+							alert("The value of prop1 is now: " + myObject.prop1 + ". Is it writeable now? " + d.writable);<br>
+
+						}<br>
+<br>
+						// accessor property example<br>
+						var book = { // Create new Object called "book"<br>
+							_year: 2004,<br>
+							edition: 1<br>
+						}<br>
+<br>
+						Object.defineProperty(book, "year", {<br>
+							get: function() {<br>
+								return this._year;<br>
+							},<br>
+							set: function(newValue) {<br>
+								if (newValue > 2004) {<br>
+									this._year = newValue;<br>
+									this.edition += newValue -2004;<br>
+								}<br>
+							}<br>
+						});<br>
+<br>
+						function updateBookEdition() {<br>
+							book.year = 2006;<br>
+							alert("Updated the year the book was publish. The year of the book is now: " + book.year + ". The edition of the book is now " + book.edition);<br>
+						}<br>
 						&lt;/script&gt;<br>
 					</code><br><br>
 					<script type="text/javascript">
-						// JS here
 
+						// data property example
 						var d = Object.getOwnPropertyDescriptor(myObject,"prop1");
-
 
 						function updateObjectProps() {
 							
@@ -121,25 +166,52 @@
 							alert("The value of prop1 is now: " + myObject.prop1 + ". Is it writeable now? " + d.writable);
 
 						}
-					</script>
-					<a href="#" onClick="event.preventDefault();alert('The value of prop1 is currently: ' + myObject.prop1 + '. Is it writeable now? ' + d.writable);">Alert prop1 of myObject before Object.defineProperty();</a> <br>
-					<a href="#" onClick="event.preventDefault();updateObjectProps();">Alert prop1 of myObject after Object.defineProperty();</a> <br>
 
+						// accessor property example
+						var book = { // Create new Object called "book"
+							_year: 2004,
+							edition: 1
+						}
+
+						Object.defineProperty(book, "year", {
+							get: function() {
+								return this._year;
+							},
+							set: function(newValue) {
+								if (newValue > 2004) {
+									this._year = newValue;
+									this.edition += newValue -2004;
+								}
+							}
+						});
+
+						function updateBookEdition() {
+							book.year = 2006;
+							alert("Updated the year the book was publish. The year of the book is now: " + book.year + ". The edition of the book is now " + book.edition);
+						}
+
+					</script>
+					<h4>Data Properties example:</h4>
+					<a href="#" onClick="event.preventDefault();alert('The value of prop1 is currently: ' + myObject.prop1 + '. Is it writeable now? ' + d.writable);">Alert prop1 of myObject before Object.defineProperty();</a> <br>
+					<a href="#" onClick="event.preventDefault();updateObjectProps();">Alert prop1 of myObject after Object.defineProperty();</a> <br><br>
+					<h4>Accessor Properties Example:</h4>
+					<a href="#" onClick="event.preventDefault();alert('The year of the book is currently: ' + book.year + '. The edition of the book is ' + book.edition);">Alert the current year and edition of the book</a>.<br>
+					<a href="#" onClick="event.preventDefault();updateBookEdition();">Update year, alert the year and edition of the book now</a>.<br></a> <br>
 				</div>
 			<br>
-				<div>
-					<h2></h2>
-					<p></p>
-					<br>
-					<code>
-						&lt;script type="text/javascript"&gt;<br><br>
-						&lt;/script&gt;<br>
-					</code><br><br>
-					<script type="text/javascript">
-						// JS here
-					</script>
-					<a href="#" onClick="event.preventDefault();">Link text</a> <br>
-				</div>
+			<div>
+				<h2>Next section</h2>
+				<p></p>
+				<br>
+				<code>
+					&lt;script type="text/javascript"&gt;<br><br>
+					&lt;/script&gt;<br>
+				</code><br><br>
+				<script type="text/javascript">
+					// JS here
+				</script>
+				<a href="#" onClick="event.preventDefault();">Link text</a> <br>
+			</div>
 			<br>
 			<br>
 		</div>
