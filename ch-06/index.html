@@ -3,8 +3,11 @@
 <head>
 	<title>Chapter 6: Object Oriented Programming</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../styles.css">
+	<link href="../lib/prism.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../lib/styles.css">
 	<meta charset="utf-8">
+
+	<script src="../lib/prism.js"></script>
 </head>
 <body>
 
@@ -99,6 +102,8 @@
 					<p>Default property attributes are changed using the ES5 <em>Object.defineProperty()</em> method. This method accepts three arguments: the property to be added or modified, the name of the property, and the descriptor object.</p>
 					<h3>Accessor Properties</h3>
 					<p>As mentioned above, there are two types of properties that an object has. The first type, discussed above, are <em>data properties</em>. The second type are called <em>Accessor Properties</em>. Accessor Properties do not contain data. Instead, they contain a <em>getter function</em> and/or a <em>setter function</em>. "When an accessor property is read from, the getter function is called, and it's the function's responsibility to return a valid value; when an accessor property is written to, a function is called with the new value, and that function must decide how to react to the data" (p. 177). "It's not possible to define an accessor property explicitly; you must use <em>Object.defineProperty();</em>" (p. 177). The underscore before the property name is a common notation that indicates that the property is not meant to be accessed outside of the object's methods.</p>
+					<p>12/20/17 &ndash; I've been trying to understand "accessor properties", and what they're used for. I found a good article, and I've read most of it: <a href="https://javascriptplayground.com/blog/2013/12/es5-getters-setters/">https://javascriptplayground.com/blog/2013/12/es5-getters-setters/</a>. I think I'm getting a handle on accessor properties now (i.e., properties with <em>getter</em> and <em>setter</em> functions). Basically, when the property's value is calculated using a function, instead of being a simple piece of static data. Additionally, when a value for an accessor property is set using the <em>set()</em> attribute, it can update the value of other properties. For instance, the article gives the example of having an accessor property called <em>fullName</em>, which is a combination of the person's first name and last name. "For the most part, in JavaScript, what you see is what you get. A value’s a value; there are no tricks. Sometimes however, you want a value that’s based on some other values: someone’s full name, for example, is a concatenation of their first and last names." When you <em>get()</em> the full name, it returns the first name plus the last name. When you <em>set()</em> the full name, it splits it into the first name and last name, and updates the firstName and lastName properties.</p>
+					<p>The author of the article also cautions against overuse: "Remember: just because a feature exists, it doesn’t need to be used all the time. Getters and Setters have their use cases, but don’t go over the top, or you’ll most likely end up with a design that’s confusing for those interacting with your objects."</p>
 					<br>
 					<p>Accessor properties have four attributes:</p>
 					<ul>
@@ -109,28 +114,28 @@
 					</ul><br>
 					<code>
 						&lt;script type="text/javascript"&gt;<br><br>
-						// data property example<br>
+						<strong>// data property example</strong><br>
 						var d = Object.getOwnPropertyDescriptor(myObject,"prop1");<br>
-<br>
+						<br>
 						function updateObjectProps() {<br>
 							<br>
 							Object.defineProperty(myObject, "prop1", {<br>
 								writable: false,<br>
 								value: "Blue"<br>
 							});<br>
-<br>
+						<br>
 							d = Object.getOwnPropertyDescriptor(myObject,"prop1");<br>
-<br>
+						<br>
 							alert("The value of prop1 is now: " + myObject.prop1 + ". Is it writeable now? " + d.writable);<br>
 
 						}<br>
-<br>
-						// accessor property example<br>
+						<br>
+						<strong>// accessor property example</strong><br>
 						var book = { // Create new Object called "book"<br>
 							_year: 2004,<br>
 							edition: 1<br>
 						}<br>
-<br>
+						<br>
 						Object.defineProperty(book, "year", {<br>
 							get: function() {<br>
 								return this._year;<br>
@@ -197,11 +202,79 @@
 					<h4>Accessor Properties Example:</h4>
 					<a href="#" onClick="event.preventDefault();alert('The year of the book is currently: ' + book.year + '. The edition of the book is ' + book.edition);">Alert the current year and edition of the book</a>.<br>
 					<a href="#" onClick="event.preventDefault();updateBookEdition();">Update year, alert the year and edition of the book now</a>.<br></a> <br>
+					<p><strong>Quick note: I'm skipping the sub-headings "Defining Multiple Properties" and "Reading Property Attributes" for now.</strong></p>
 				</div>
 			<br>
 			<div>
+				<h2>Object Creation</h2>
+				<p>This section describes the different patterns used to create objects.</p>
+				<h3>The Factory Pattern</h3>
+				<p>Consists of a function that returns an object.</p>
+				<br>
+				<pre>
+				<code class="language-js">
+					function createPerson(name, age, job){ 
+				        	// Create new object
+				            var o = new Object(); 
+				        	// Define its properties
+				            o.name = name; 
+				            o.age = age; 
+				            o.job = job; 
+				            // Give it a method
+				            o.sayName = function(){ 
+				                alert(this.name); 
+				            };     
+				        	// Give it a method
+				            return o; 
+				        }
+				         
+				        var person1 = createPerson("Nicholas", 29, "Software  Engineer"); 
+				        var person2 = createPerson("Greg", 27, "Doctor"); 
+				         
+				        person1.sayName();   //"Nicholas" 
+				        person2.sayName();   //"Greg"			 		
+				</code>
+				</pre><br><br>
+				<h3>The Constructor Pattern</h3>
+				<p>Constructors create specific types of objects. Instances are create using the <em>new</em> operator. Note: there is no object being explicitly created in the function, and properties and methods are assigned directly onto the <em>this</em> object.</p>
+				<br>
+				<pre>
+				<code class="language-js">
+			        function Person(name, age, job){
+			            this.name = name;
+			            this.age = age;
+			            this.job = job;
+			            this.sayName = function(){
+			                alert(this.name);
+			            };    
+			        }
+			        
+			        var person1 = new Person("Nicholas", 29, "Software Engineer");
+			        var person2 = new Person("Greg", 27, "Doctor");
+			        
+			        person1.sayName();   //"Nicholas"
+			        person2.sayName();   //"Greg"
+			        
+			        alert(person1 instanceof Object);  //true
+			        alert(person1 instanceof Person);  //true
+			        alert(person2 instanceof Object);  //true
+			        alert(person2 instanceof Person);  //true
+			        
+			        alert(person1.constructor == Person);  //true
+			        alert(person2.constructor == Person);  //true
+			        
+			        alert(person1.sayName == person2.sayName);  //false     
+				</code>
+				</pre><br><br>
+				<script type="text/javascript">
+					// JS here
+				</script>
+				<a href="#" onClick="event.preventDefault();">Link text</a> <br>
+			</div>
+			<br>
+			<div>
 				<h2>Next section</h2>
-				<p></p>
+				<p>content goes here</p>
 				<br>
 				<code>
 					&lt;script type="text/javascript"&gt;<br><br>
