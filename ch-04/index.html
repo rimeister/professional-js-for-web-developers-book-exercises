@@ -3,7 +3,11 @@
 <head>
 	<title>Chapter 4: Variables, Scope, and Memory</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="../lib/prism.css" rel="stylesheet" />
 	<link rel="stylesheet" href="../lib/styles.css">
+	<meta charset="utf-8">
+
+	<script src="../lib/prism.js"></script>
 </head>
 <body>
 
@@ -33,19 +37,19 @@
 				<br>
 				<p>Okay, so, two indpendent variables. Changing what the local variable points to in the function doesn't change what the original variable points to. Think I got it.</p><br>
 				<h4>Code</h4>
-				<code>
-					&lt;script type="text/javascript"&gt;<br><br>
-					&nbsp;&nbsp;&nbsp;&nbsp;function setName(obj) {<br>
-					    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj.name = "Nicholas";<br>
-					    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj = new Object;<br>
-					    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj.name = "Greg";<br>
-					&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+<pre>
+<code class="language-js">
+function setName(obj) {
+	obj.name = "Nicholas";
+	obj = new Object;
+	obj.name = "Greg";
+}
 
-					&nbsp;&nbsp;&nbsp;&nbsp;var person = new Object();<br><br>
-					&nbsp;&nbsp;&nbsp;&nbsp;setName(person);<br><br>
-					&nbsp;&nbsp;&nbsp;&nbsp;alert(person.name);<br><br>
-					&lt;/script&gt;<br>
-				</code>
+var person = new Object();
+setName(person);
+alert(person.name);
+</code>
+</pre>
 
 				<h4>Working Example:</h4>
 				<script type="text/javascript">
@@ -67,19 +71,18 @@
 				<h2>Determining Type</h2>
 				<p>The <em>typeof</em> works well with primitive values, but doesn't work well with reference types, since it will only tell you it's an object. For reference types, you want to use <em>instanceof</em> operator, which can tell you which type of object it is. Note, any reference type will always be an instance of Object.</p>
 				<h4>Code</h4>
-				<code>
-					&lt;script type="text/javascript"&gt;<br>
-					
+<pre>
+<code class="language-js">
 
-					var person = new Object();<br>
-					var arr = new Array();<br>
-					
-					alert(person instanceof Object);
-					alert(arr instanceof Array);
 
-					&lt;/script&gt;<br>
-				</code>
+var person = new Object();
+var arr = new Array();
 
+alert(person instanceof Object);
+alert(arr instanceof Array);
+
+</code>
+</pre>
 				<h4>Working Example:</h4>
 				<script type="text/javascript">
 
@@ -100,24 +103,23 @@
 				<p><em>Context</em> refers to the code block in which something happens. The <em>scope chain</em> refers to the hierarchy of variables that a particular context has access to.</p>
 				<p>The <em>global</em> scope, also referred to as the <em>window</em>, is the outermost context, and is available to any other execution context. <del>An execution context could be a function, a for loop, or any block of code that terminates.</del> In javascript, there are only two primary types of execution contexts: global and function. So, a code block such as as <em>if</em> statement or a <em>for</em> loop does not have its own scope, and variables declared within it will be added to the global context. Below, I have created variables in three execution contexts:</p>
 				<h4>Code</h4>
-				<code>
-					&lt;script type="text/javascript"&gt;<br>
-					
-					<br>
-					var levelOne = 1;<br>
-					<br>
-					function secondLevel() {<br>
-					<br>
-					&nbsp;&nbsp;&nbsp;var levelTwo = 2;<br>
-					<br>
-					&nbsp;&nbsp;&nbsp;function thirdLevel(){<br>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var levelThree = 3;<br>
-					&nbsp;&nbsp;&nbsp;}<br>
-					<br>
-					}<br>
-					<br>
-					&lt;/script&gt;<br>
-				</code>
+<pre>
+<code class="language-js">
+
+var levelOne = 1;
+
+function secondLevel() {
+
+	var levelTwo = 2;
+
+	function thirdLevel(){
+		var levelThree = 3;
+	}
+
+}
+
+</code>
+</pre>
 				<br><br>
 				<p>By clicking the links below, you can see that:</p>
 				<ol>
@@ -225,43 +227,47 @@
 				<p>Here is a quote from that page explaining the diagram:</p>
 				<p><strong>"The scope chain for a given execution context typically remains unchanged during code execution. There are, however, two statements that temporarily augment the scope chain of an execution context. The first is the with statement, which is designed to allow easy access to object properties by making them appear as local variables. For example:"</strong><br>	
 				<br>
-				<em>	
-				var person = {<br>	
-				&nbsp;&nbsp;&nbsp;&nbsp;name: "Nicholas",<br>	
-				&nbsp;&nbsp;&nbsp;&nbsp;age: 30<br>	
-				};<br>	
-				<br>	
-				function displayInfo(){<br>	
-				&nbsp;&nbsp;&nbsp;&nbsp;var count = 5;<br>	
-				&nbsp;&nbsp;with(person){<br>	
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert(name + " is " + age);<br>	
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert("Count is " + count);<br>	
-				&nbsp;&nbsp;&nbsp;&nbsp;}<br>	
-				}<br>	
-				<br>	
-				displayInfo();<br>
+<pre>
+<code class="language-js">	
+var person = {	
+	name: "Nicholas",	
+	age: 30	
+};	
+	
+function displayInfo(){	
+	var count = 5;	
+	with(person){	
+		alert(name + " is " + age);	
+		alert("Count is " + count);	
+	}	
+}	
+	
+displayInfo();
+</code></pre>
 				</em>
 				<br><br>
 				<strong>"In this code, the person object is passed into a with block. This allows you to access the name and age properties as though they were locally defined. What actually happens, though, is that a new variable object is pushed to the front of the execution context's scope chain. This variable object contains all of the properties of the specified object (in this case, person) so that they can be accessed without using dot notation. Figure 7.4, "Scope chain augmentation using the with statement" shows how the scope chain for displayInfo is augmented while the with statement is being executed." (archive.oreilly.com)</strong></p>
 				<br><br>
 				<p>Think I have made sense of it now, especially after seeing the diagram and this other explanation I've found (from the same author).</p>
 				<h4>Code</h4>
-				<code>
-					&lt;script type="text/javascript"&gt;<br>
-					    function buildUrl() {<br>
-			            var qs = "?debug=true";<br>
-			        <br>
-			            with(location){<br>
-			                var url = href + qs;   <br>     
-			            }<br>
-			        <br>
-			            return url;<br>
-			        }<br>
-					<br>
-			        var result = buildUrl();<br>
-			        alert(result);<br>
-					&lt;/script&gt;<br>
-				</code>
+
+<pre>
+<code class="language-js">
+
+function buildUrl() {
+	var qs = "?debug=true";
+
+	with(location){
+	    var url = href + qs;        
+	}
+
+	return url;
+}
+
+var result = buildUrl();
+alert(result);
+</code>
+</pre>
 
 				<h4>Working Example:</h4>
 				<script type="text/javascript">
@@ -287,19 +293,23 @@
 				<h2>No Block-Level Scopes</h2>
 				<p>As I clarified earlier, variables can't be scoped to blocks of code, other than functions. Variables defined within curly braces aren't necessarily destroyed after the code within the curly braces has executed. For example, if a variable is declared within an <em>if</em> statement, that variable is added to the global context, and is accessible after the conditional statement has run. In the case of a <em>for</em> loop, the induction variable (<em>var i</em>) actually becomes a global variable that is accessible after the loop has executed. The presenter in <a href="https://www.lynda.com/JavaScript-tutorials/Scope/604268/619464-4.html?org=torontopubliclibrary.ca">this video</a> suggests omitting <em>var</em> from the induction variable of the <em>for</em> statement, and instead, declaring <em>i</em> at the top of your javascript file with the other global variables, since it is going to be a global variable anyways.</p>
 				<h4>Code</h4>
-				<code>
-					if (1 < 2) {<br>
-						var j = "jay";<br>
-					}<br>
-					<br>
-			        alert(j);<br>
-			        <br>
-			        for (var i =0;i < 2; i++) {<br>
-			        console.log(i);<br>
-			    	}<br>
-			    	alert(i);
-					&lt;/script&gt;<br>
-				</code>
+<pre>
+<code class="language-js">
+
+if (1 < 2) {
+	var j = "jay";
+}
+
+alert(j);
+
+for (var i =0;i < 2; i++) {
+	console.log(i);
+}
+
+alert(i);
+
+</code>
+</pre>
 
 				<h4>Working Example:</h4>
 				<script type="text/javascript">
@@ -338,20 +348,22 @@
 			<div>
 				<h2>Managing Memory</h2>
 				<p>Typically, you don't have to worry about memory management in Javascript, since it is a garbage-collected programming environment. But, because the amount of memory available to the browser is much less than other desktop applications, it can be useful to make sure that make sure that any <strong>global</strong> objects that you don't need anymore are set to <em>null</em> so that they will be garbage-collected. Below is an example of an object (created from a factory function), which is <em>derferenced</em> once it is no longer needed, it order to put it "out of context", so it will be marked for deletion next time garbage-collection occurs.</p><br>
-				<code>
-					&lt;script type="text/javascript"&gt;<br>
-					<br>
-					&nbsp;&nbsp;&nbsp;&nbsp;function createPerson(name) {<br>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var localPerson = new Object();<br>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;localPerson.name = name;<br>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return localPerson; <br>
-					&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
-					&nbsp;&nbsp;&nbsp;&nbsp;var globalPerson = createPerson("Riley");<br><br>
-					&nbsp;&nbsp;&nbsp;&nbsp;// Do something with globalPerson<br><br>
-					&nbsp;&nbsp;&nbsp;&nbsp;globalPerson = null;
-					<br><br>
-					&lt;/script&gt;<br>
-				</code>
+<pre>
+<code class="language-js">
+
+function createPerson(name) {
+	var localPerson = new Object();
+	localPerson.name = name;
+	return localPerson; 
+}
+
+var globalPerson = createPerson("Riley");
+
+// Do something with globalPerson
+globalPerson = null;
+
+</code>
+</pre>
 			</div>
 			<br><br>
 		</div>

@@ -3,8 +3,11 @@
 <head>
 	<title>Chapter 5: Reference Types</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="../lib/prism.css" rel="stylesheet" />
 	<link rel="stylesheet" href="../lib/styles.css">
 	<meta charset="utf-8">
+
+	<script src="../lib/prism.js"></script>
 </head>
 <body>
 
@@ -22,15 +25,15 @@
 
 
 				<h4>Code</h4>
-				<code>
-					&lt;script type="text/javascript"&gt;<br><br>
-					&nbsp;&nbsp;&nbsp;&nbsp;var instanceName = new Array();<br><br>
-					&nbsp;&nbsp;&nbsp;&nbsp;alert(instanceName instanceof Array); // True <br>
-					&nbsp;&nbsp;&nbsp;&nbsp;alert(instanceName instanceof Function); // False <br>
-					&nbsp;&nbsp;&nbsp;&nbsp;alert(instanceName instanceof Object); // True <br>
-					&nbsp;&nbsp;&nbsp;&nbsp;<br>
-					&lt;/script&gt;<br>
-				</code><br><br>
+				<pre>
+<code class="language-js">
+
+var instanceName = new Array();
+alert(instanceName instanceof Array); // True 
+alert(instanceName instanceof Function); // False 
+alert(instanceName instanceof Object); // True 
+
+</code></pre><br><br>
 
 				<h4>Working Example:</h4>
 				<script type="text/javascript">
@@ -46,17 +49,20 @@
 				<h2>The Object Type</h2>
 				<p>The <em>Object</em> type doesn't have much functionality, but it's useful for transmitting and storing data in an application. They can be instantiated using <em>var varName = new Object();</em>, or by declaring an object literal, like this: <em>var varName = {name: "Riley", age: 30};</em></p><br>
 				<h4>Code</h4>
-				<code>
-					&lt;script type="text/javascript"&gt;<br><br>
-						&nbsp;&nbsp;&nbsp;&nbsp;var object1 = new Object(); <br>
-						&nbsp;&nbsp;&nbsp;&nbsp;object1.name = "obj1"; <br><br>
-						&nbsp;&nbsp;&nbsp;&nbsp;var object2 = { <br>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name: "obj2" <br>
-						&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
-						&nbsp;&nbsp;&nbsp;&nbsp;alert(object1.name);<br>
-						&nbsp;&nbsp;&nbsp;&nbsp;alert(object2.name);<br><br>
-					&lt;/script&gt;<br>
-				</code><br><br>
+				<pre>
+<code class="language-js">
+
+var object1 = new Object(); 
+object1.name = "obj1"; 
+
+var object2 = { 
+	name: "obj2" 
+}
+
+alert(object1.name);
+alert(object2.name);
+
+</code></pre><br><br>
 
 				<h4>Working Example:</h4>
 				<script type="text/javascript">
@@ -77,60 +83,62 @@
 				<p>The book says that ES5 includes five iterative methods for arrays: every(), filter(), forEach(), map(), and some().</p>
 				<br>
 				<h4>Code</h4>
-				<code>
-					&lt;script type="text/javascript"&gt;<br><br>
-						var fruits = ['Apple', 'Banana'];<br>
-					var fruits = ['Banana','Apple']; // Create array using object literal notation<br>
-					console.log(fruits);<br>
-					<br>
-					fruits.push('Orange'); // Push an orange onto the end of the array<br>
-					console.log(fruits);<br>
-					<br>
-					fruits.length = 4; // Adds an undefined item to the end of the array<br>
-					console.log(fruits);<br>
-					<br>
-					fruits[3] = "Pear"; // Put "Pear" in index position 3<br>
-					console.log(fruits);<br>
-					<br>
-					fruits.sort(); // Sorts array according to unicode index of first letter of the string<br>
-					console.log(fruits);<br>
-					<br>
-					console.log("The item \"Orange\" is at index position " + fruits.indexOf("Orange"));<br>
-					<br>
-					var itemsWithP = fruits.filter(function(item,index,array){<br>
-						<br>
-						return ( item.toString().toLowerCase().indexOf("p") > -1 ); // Filter items have have a letter P in them<br>
-					});<br>
-					<br>
-					console.log(itemsWithP);<br>
-					<br>
-					var areAllItemsLengthGreaterThanFour = fruits.every(function(item,index,array){<br>
-						return (item.length > 4);<br>
-					});<br>
-					<br>
-					if (areAllItemsLengthGreaterThanFour) {<br>
-						console.log("All items have more than four characters");<br>
-					} else {<br>
-						console.log("Some items have less than four characters");<br>
-					}<br>
-					<br>
-					var areAllItemsLengthGreaterThanThree = fruits.every(function(item,index,array){<br>
-						return (item.length > 3);<br>
-					});<br>
-					<br>
-					if (areAllItemsLengthGreaterThanThree) {<br>
-						console.log("All items have more than three characters");<br>
-					} else {<br>
-						console.log("Some items have less than three characters");<br>
-					}<br>
-					// Reduction methods for iterating some values in an array and building a new value from them (such as adding or subtracting them). Also has reduceRight(), which starts at the other end.<br><br>
-					var values = [2,4,5,1,2,4];<br>
-					var sum = values.reduce(function(prev,cur,index,array){<br>
-						return prev + cur;<br>
-					});<br>
-					console.log("The sum of these values is " + sum);<br>
-					&lt;/script&gt;<br>
-				</code><br><br>
+				<pre>
+<code class="language-js">
+
+var fruits = ['Apple', 'Banana'];
+var fruits = ['Banana','Apple']; // Create array using object literal notation
+console.log(fruits);
+
+fruits.push('Orange'); // Push an orange onto the end of the array
+console.log(fruits);
+
+fruits.length = 4; // Adds an undefined item to the end of the array
+console.log(fruits);
+
+fruits[3] = "Pear"; // Put "Pear" in index position 3
+console.log(fruits);
+
+fruits.sort(); // Sorts array according to unicode index of first letter of the string
+console.log(fruits);
+
+console.log("The item \"Orange\" is at index position " + fruits.indexOf("Orange"));
+
+var itemsWithP = fruits.filter(function(item,index,array){
+
+return ( item.toString().toLowerCase().indexOf("p") > -1 ); // Filter items have have a letter P in them
+});
+
+console.log(itemsWithP);
+
+var areAllItemsLengthGreaterThanFour = fruits.every(function(item,index,array){
+return (item.length > 4);
+});
+
+if (areAllItemsLengthGreaterThanFour) {
+	console.log("All items have more than four characters");
+} else {
+	console.log("Some items have less than four characters");
+}
+
+var areAllItemsLengthGreaterThanThree = fruits.every(function(item,index,array){
+	return (item.length > 3);
+});
+
+if (areAllItemsLengthGreaterThanThree) {
+	console.log("All items have more than three characters");
+} else {
+	console.log("Some items have less than three characters");
+}
+
+// Reduction methods for iterating some values in an array and building a new value from them (such as adding or subtracting them). Also has reduceRight(), which starts at the other end.
+var values = [2,4,5,1,2,4];
+var sum = values.reduce(function(prev,cur,index,array){
+	return prev + cur;
+});
+console.log("The sum of these values is " + sum);
+
+</code></pre><br><br>
 
 				<h4>Working Example:</h4>
 				<script type="text/javascript">
@@ -195,18 +203,19 @@
 					<h2>The Date Object</h2>
 					<p>Instantiating a date object creates a reference with the current date and time. You can also create a Date object and pass in a specific date, using Date.parse(), or using the numeric format.</p>
 					<h4>Code</h4>
-					<code>
-						&lt;script type="text/javascript"&gt;<br><br>
-							var now = new Date();<br>
-							var then = new Date(Date.parse("May 24, 2017"));<br>
-							var y2k = new Date(2000,0);<br>
-							<br>
-							// Log the dates<br>
-							console.log(now); // Date 2017-12-15T16:42:33.011Z<br>
-							console.log(then); // Date 2017-05-24T04:00:00.000Z<br>
-							console.log(y2k); // Date 2000-01-01T05:00:00.000Z<br>
-						&lt;/script&gt;<br>
-					</code><br><br>
+					<pre>
+<code class="language-js">
+
+var now = new Date();
+var then = new Date(Date.parse("May 24, 2017"));
+var y2k = new Date(2000,0);
+
+// Log the dates
+console.log(now); // Date 2017-12-15T16:42:33.011Z
+console.log(then); // Date 2017-05-24T04:00:00.000Z
+console.log(y2k); // Date 2000-01-01T05:00:00.000Z
+
+</code></pre><br><br>
 
 					<h4>Working Example:</h4>
 					<script type="text/javascript">
@@ -239,21 +248,22 @@
 					<h2>The RegExp Object</h2>
 					<p>A RegExp object contains a regular expression. The primary method you use with it (which is apparently innherited through the prototype chain) is <em>exec()</em>, but you can also use <em>test()</em>.</p>
 					<h4>Code</h4>
-					<code>
-						&lt;script type="text/javascript"&gt;<br><br>
-							var phrase = "Test this expression";
-							var phrase2 = "Also test this spare phrase, but with exec()";
-							var pattern1 = /press/;
-							var pattern2 = new RegExp(".pa");
+					<pre>
+<code class="language-js">
 
-							console.log("Is pattern1 (\"" + pattern1.source + "\") in the phrase \"" + phrase + "\"? " + pattern1.test(phrase));
-							console.log("Is pattern2 (\"" + pattern2.source + "\") in the phrase \"" + phrase + "\"? " + pattern2.test(phrase));
+var phrase = "Test this expression";
+var phrase2 = "Also test this spare phrase, but with exec()";
+var pattern1 = /press/;
+var pattern2 = new RegExp(".pa");
 
-							var matches = pattern2.exec(phrase2);
+console.log("Is pattern1 (\"" + pattern1.source + "\") in the phrase \"" + phrase + "\"? " + pattern1.test(phrase));
+console.log("Is pattern2 (\"" + pattern2.source + "\") in the phrase \"" + phrase + "\"? " + pattern2.test(phrase));
 
-							console.log(matches[0]);
-						&lt;/script&gt;<br>
-					</code><br><br>
+var matches = pattern2.exec(phrase2);
+
+console.log(matches[0]);
+
+</code></pre><br><br>
 
 					<h4>Working Example:</h4>
 					<script type="text/javascript">
@@ -283,17 +293,18 @@
 					<p>The book says functions also have two more methods, named <em>call()</em> and <em>apply()</em>, but I'm not totally sure how to use them. Apparently they get used in conjunction with <em>this</em>.</p>
 
 					<h4>Code</h4>
-					<code>
-						&lt;script type="text/javascript"&gt;<br><br>
-						function sum(a,b){<br>	
-							// Logs the name of this function<br>	
-							console.log("The funciton is named " + arguments.callee); // "The funciton is named function sum(a,b){ ... etc."<br>	
-							return a + b;<br>	
-						}<br>	
-						<br>	
-						var addedTogether = sum(1,2);<br>	
-						&lt;/script&gt;<br>
-					</code><br><br>
+					<pre>
+<code class="language-js">
+
+function sum(a,b){
+	// Logs the name of this function
+	console.log("The funciton is named " + arguments.callee); // "The funciton is named function sum(a,b){ ... etc."
+	return a + b;
+}
+
+var addedTogether = sum(1,2);
+
+</code></pre><br><br>
 
 					<h4>Working Example:</h4>
 					<script type="text/javascript">
@@ -314,17 +325,18 @@
 					<h2>Primitive Wrapper Types: String, Boolean, Number</h2>
 					<p>"Primitive Wrapper" refers to the object that is created behind the scenes that allows you to use methods on primitive data types. Logically, you shouldn't be able to use methods on primitive data, since they shouldn't have them. But, you can because a wrapper instance is temporarily created.</p>
 				</div>
-				<code>
-						&lt;script type="text/javascript"&gt;<br><br>
-						var s1 = "some text";<br>
-						var s2 = s1.substring(2); // Using a method on a primitive <br>
-						<br>
-						// Behind the scenes, this happens:<br>
-						var s1 = new String("Some text"); <br>
-						var s2 = s1.substring(2); <br>
-						s1 = null; <br><br>
-						&lt;/script&gt;<br>
-				</code><br>
+				<pre>
+<code class="language-js">
+
+var s1 = "some text";
+var s2 = s1.substring(2); // Using a method on a primitive
+
+// Behind the scenes, this happens:
+var s1 = new String("Some text"); 
+var s2 = s1.substring(2); 
+s1 = null; 
+
+</code></pre><br>
 				<br>
 				<div>
 					<h2>The Global Object</h2>
@@ -332,18 +344,20 @@
 					<p>According to this book, the <em>eval()</em> method is "perhaps the most powerful in the entire ECMAScript language" (p. 63). I can't figure out why it's powerful, or even useful, from reading this book.</p>
 					<p>The Window object: "Though ECMA-262 doesn't indicate a way to access the Global object directly, web browsers implement it such that <em>window</em> is the Global object's delegate.</p>
 					<br>
-					<code>
-						&lt;script type="text/javascript"&gt;<br><br>
-						eval("alert("hi")"); // evaluates as alert("hi"); <br>
-						<br>
-						// The window object <br>
-						var color = "red"; // Global variable called "color"<br>
-						function sayColor(){ <br>
-						alert(window.color); <br>
-						} <br>
-						window.sayColor(); // "red" <br>
-						&lt;/script&gt;<br>
-					</code>
+					<pre>
+<code class="language-js">
+
+eval("alert("hi")"); // evaluates as alert("hi"); 
+
+// The window object 
+var color = "red"; // Global variable called "color"
+function sayColor(){ 
+	alert(window.color); 
+} 
+
+window.sayColor(); // "red" 
+
+</code></pre>
 				</div>
 				<br>
 				<div>
@@ -352,14 +366,15 @@
 					<p>There are a bunch of methods and properties, such as the value of Pi (<em>Math.PI();</em>, the square root of 2 (<em>Math.SQRT2</em>),  the square root of &frac12; (<em>Math.SQRT2</em>), rounding methods (<em>Math.ceil();</em>, <em>Math.round();</em>, and <em>Math.floor();</em>), the <em>random();</em> method, and the square root method (<em>Math.sqrt();</em>, among several others.</p>
 					<p>In the example below, I will try the random() method. Clicking the link alerts a random method, converted to a whole number. Rationale: Math.random gives a value between 0 and 1, such as 0.215556. Multiplying it by ten gives it a value between 1 and 10 (e.g., 2.15556). Random() could also return a value that has 0 as the first number after the decminal, though (e.g., 0.06425488375893851), which when multiplied by 10, would be a number like 0.6425488375893851). Math.floor ALWAYS rounds the decimal value down -- in the instance of 0.642, it would be rounded down to 0. Since we want a number between 1 and 10 (not 0 and 9), we have to add 1 the resulting value. I'm not sure why we wouldn't just use Math.ceil(), and not add 1, but that's the way he does it.</p>
 					<br>
-					<code>
-						&lt;script type="text/javascript"&gt;<br><br>
-						function randNumb() { <br>
-							// Returns a random number between 1 and 10. <br>
-							alert( Math.floor( Math.random() * 10 ) ); <br>
-						} <br>
-						&lt;/script&gt;<br>
-					</code>
+					<pre>
+<code class="language-js">
+
+function randNumb() { 
+// Returns a random number between 1 and 10. 
+	alert( Math.floor( Math.random() * 10 ) ); 
+} 
+
+</code></pre>
 					<script type="text/javascript">
 						function randNumb() {
 							// Returns a random number between 1 and 10.

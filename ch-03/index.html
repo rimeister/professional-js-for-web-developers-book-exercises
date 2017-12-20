@@ -3,7 +3,11 @@
 <head>
 	<title>Chapter 3: Language Basics</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="../lib/prism.css" rel="stylesheet" />
 	<link rel="stylesheet" href="../lib/styles.css">
+	<meta charset="utf-8">
+
+	<script src="../lib/prism.js"></script>
 </head>
 <body>
 
@@ -20,12 +24,12 @@
 				</p>
 				<p>In this example, <em>var foo;</em> has been declared, but is uninitialized.</p>
 				<h4>Code</h4>
-				<code>
-					&lt;script type="text/javascript"&gt;<br>
-						var foo;<br>
-					&lt;/script&gt;<br>
-					&lt;a href="#" onClick="event.preventDefault();alert(typeof foo);"&gt;Click here to see what data type <em>foo</em> is.&lt;/a&gt;
-				</code>
+<pre>
+<code class="language-js">
+var foo;
+&lt;a href="#" onClick="event.preventDefault();alert(typeof foo);"&gt;Click here to see what data type <em>foo</em> is.&lt;/a&gt;
+</code>
+</pre>
 
 				<h4>Working Example:</h4>
 				<script type="text/javascript">
@@ -40,12 +44,12 @@
 				<p>A null data type is an object with no value.</p>
 				<p>In this example, <em>var bar</em> has been set to <em>null</em>. Alerting <em>typeof bar</em> will return <em>object</em>.</p>
 				<h4>Code</h4>
-				<code>
-					&lt;script type="text/javascript"&gt;<br>
-						var bar = null;<br>
-					&lt;/script&gt;<br>
-					&lt;a href="#" onClick="event.preventDefault();alert(typeof bar);"&gt;Click here to see what data type <em>bar</em> is.&lt;/a&gt;
-				</code>
+<pre>
+<code class="language-js">
+var bar = null;
+&lt;a href="#" onClick="event.preventDefault();alert(typeof bar);"&gt;Click here to see what data type <em>bar</em> is.&lt;/a&gt;
+</code>
+</pre>
 
 				<h4>Working Example:</h4>
 				<script type="text/javascript">
@@ -60,12 +64,12 @@
 				<p>A Boolean data type is a binary which is true or false.</p>
 				<p>In this example, <em>var zong</em> has been set to <em>true</em>. Alerting <em>typeof zong</em> will return <em>boolean</em>.</p>
 				<h4>Code</h4>
-				<code>
-					&lt;script type="text/javascript"&gt;<br>
-						var zong = true;<br>
-					&lt;/script&gt;<br>
-					&lt;a href="#" onClick="event.preventDefault();alert(typeof zong);"&gt;Click here to see what data type <em>zong</em> is.&lt;/a&gt;
-				</code>
+<pre>
+<code class="language-js">
+var zong = true;
+&lt;a href="#" onClick="event.preventDefault();alert(typeof zong);"&gt;Click here to see what data type <em>zong</em> is.&lt;/a&gt;
+</code>
+</pre>
 
 				<h4>Working Example:</h4>
 				<script type="text/javascript">
@@ -80,12 +84,12 @@
 				<p>The number data type includes: integers, floating point values, octal values, and hexidecimal values.</p>
 				<p>In this example, <em>var chaz</em> has been set to <em>14</em>. Alerting <em>typeof chaz</em> will return <em>number</em>.</p>
 				<h4>Code</h4>
-				<code>
-					&lt;script type="text/javascript"&gt;<br>
-						var chaz = 14;<br>
-					&lt;/script&gt;<br>
-					&lt;a href="#" onClick="event.preventDefault();alert(typeof chaz);"&gt;Click here to see what data type <em>chaz</em> is.&lt;/a&gt;
-				</code>
+<pre>
+<code class="language-js">
+var chaz = 14;
+&lt;a href="#" onClick="event.preventDefault();alert(typeof chaz);"&gt;Click here to see what data type <em>chaz</em> is.&lt;/a&gt;
+</code>
+</pre>
 
 				<h4>Working Example:</h4>
 				<script type="text/javascript">
@@ -96,29 +100,31 @@
 				<br>
 				<br>
 				<h4>Numeric conversions</h4>
-				<p>Javascript can convert non-numeric data types to numbers using the Number() function. Some values will convert to numbers, some won't. These examples show what Number() function does with different values.</p>
-				<code>
+				<p>Javascript can convert non-numeric data types to numbers using the Number() function. Some values will convert to numbers, some won't. These examples show 
+<pre>
+<code class="language-js">
 
-					&lt;a href="#" onClick="event.preventDefault();alert(Number(true));"&gt;Click here to see what number &lt;em&gt;true&lt;/em&gt; converts to using Number(true)&lt;/a&gt;
-					<br>
-					<br>
-					&lt;a href="#" onClick="event.preventDefault();alert(Number('10'));"&gt;Click here to see what number the string &lt;em&gt;'10'&lt;/em&gt; converts to using Number('10')&lt;/a&gt;
-					<br>
-					<br>
-					&lt;a href="#" onClick="event.preventDefault();alert(Number('ten'));"&gt;Click here to see what number the string &lt;em&gt;'ten'&lt;/em&gt; converts to using Number('ten')&lt;/a&gt;
-					<br>
-					<br>
-					&lt;a href="#" onClick="event.preventDefault();alert(Number(000010));"&gt;Click here to see what number &lt;em&gt;000010&lt;/em&gt; converts to using Number(000010)&lt;/a&gt;
-					<br>
-					<br>
-					&lt;a href="#" onClick="event.preventDefault();alert(Number('000010'));"&gt;Click here to see what number the string &lt;em&gt;'000010'&lt;/em&gt; converts to using Number('000010')&lt;/a&gt;
-					<br>
-					<br>
-					&lt;a href="#" onClick="event.preventDefault();alert(Number(null));"&gt;Click here to see what number &lt;em&gt;null&lt;/em&gt; converts to using Number(null)&lt;/a&gt;
-					<br>
-					<br>
-					&lt;a href="#" onClick="event.preventDefault();alert(Number(null));"&gt;Click here to see what number the hex value &lt;em&gt;0xf&lt;/em&gt; converts to using Number(0xf)&lt;/a&gt;
-				</code>
+&lt;a href="#" onClick="event.preventDefault();alert(Number(true));"&gt;Click here to see what number &lt;em&gt;true&lt;/em&gt; converts to using Number(true)&lt;/a&gt;
+
+
+&lt;a href="#" onClick="event.preventDefault();alert(Number('10'));"&gt;Click here to see what number the string &lt;em&gt;'10'&lt;/em&gt; converts to using Number('10')&lt;/a&gt;
+
+
+&lt;a href="#" onClick="event.preventDefault();alert(Number('ten'));"&gt;Click here to see what number the string &lt;em&gt;'ten'&lt;/em&gt; converts to using Number('ten')&lt;/a&gt;
+
+
+&lt;a href="#" onClick="event.preventDefault();alert(Number(000010));"&gt;Click here to see what number &lt;em&gt;000010&lt;/em&gt; converts to using Number(000010)&lt;/a&gt;
+
+
+&lt;a href="#" onClick="event.preventDefault();alert(Number('000010'));"&gt;Click here to see what number the string &lt;em&gt;'000010'&lt;/em&gt; converts to using Number('000010')&lt;/a&gt;
+
+
+&lt;a href="#" onClick="event.preventDefault();alert(Number(null));"&gt;Click here to see what number &lt;em&gt;null&lt;/em&gt; converts to using Number(null)&lt;/a&gt;
+
+
+&lt;a href="#" onClick="event.preventDefault();alert(Number(null));"&gt;Click here to see what number the hex value &lt;em&gt;0xf&lt;/em&gt; converts to using Number(0xf)&lt;/a&gt;
+</code>
+</pre>
 
 				<h4>Working Examples of Number() conversions:</h4>
 
