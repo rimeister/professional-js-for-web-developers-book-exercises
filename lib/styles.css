@@ -1,3 +1,6 @@
+code {
+	tab-size: 1 !important;
+}
 #dogs-info h3 {
 	color: red;
 }

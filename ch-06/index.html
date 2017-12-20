@@ -23,34 +23,34 @@
 					<p>As the instructor in the Lynda programming Fundamentals class discussed, a <em>class</em> is a "blueprint" for an object. An object is the thing created from the blueprint. "Reference type" refers to what type of object it is (what blueprint it was created from), or, what class of object it is.</p>
 					<p>Below is an example of an object I made up, though I guess it would only be an instance of the "Object" class, since I haven't defined a custom class/reference type.</p>
 					<br>
-					<code>
-						&lt;script type="text/javascript"&gt;<br><br>
-						// Created with Object Literal notation <br>
-						var myObject = { <br>
-							prop1: "Boss", <br>
-							prop2: "Totes", <br>
-							meth1: function() { <br>
-								alert(this.prop1); <br>
-							}, <br>
-							meth2: function(arg1){ <br>
-								alert("The number of characters in this variable is " + arg1.length); <br>
-							} <br>
-						} <br>
-						<br>
-						// Create a new instance of object <br>
-						var myObject2 = new Object(); <br>
-						<br>
-						myObject2.prop1 = "Boat"; <br>
-						myObject2.prop2 = "Toss"; <br>
-						myObject2.meth1 = function() { <br>
-							alert(this.prop1); <br>
-						}; <br>
-						myObject2.meth2 = function(arg1){ <br>
-							alert("The number of characters in this variable is " + arg1.length); <br>
-						}; <br>
-						<br>
-						&lt;/script&gt;<br>
-					</code><br><br>
+					<pre>
+					<code class="language-js">
+						// Created with Object Literal notation 
+						var myObject = { 
+							prop1: "Boss", 
+							prop2: "Totes", 
+							meth1: function() { 
+								alert(this.prop1); 
+							}, 
+							meth2: function(arg1){ 
+								alert("The number of characters in this variable is " + arg1.length); 
+							} 
+						} 
+						
+						// Create a new instance of object 
+						var myObject2 = new Object(); 
+						
+						myObject2.prop1 = "Boat"; 
+						myObject2.prop2 = "Toss"; 
+						myObject2.meth1 = function() { 
+							alert(this.prop1); 
+						}; 
+						myObject2.meth2 = function(arg1){ 
+							alert("The number of characters in this variable is " + arg1.length); 
+						}; 
+						
+					</code>
+					</pre><br><br>
 					<script type="text/javascript">
 						var myObject = {
 							prop1: "Boss",
@@ -112,48 +112,48 @@
 						<li><strong>[[Get]]</strong>: The function to call when the property is read from.</li>
 						<li><strong>[[Set]]</strong>: The function to call when the property is written to.</li>
 					</ul><br>
-					<code>
-						&lt;script type="text/javascript"&gt;<br><br>
-						<strong>// data property example</strong><br>
-						var d = Object.getOwnPropertyDescriptor(myObject,"prop1");<br>
-						<br>
-						function updateObjectProps() {<br>
-							<br>
-							Object.defineProperty(myObject, "prop1", {<br>
-								writable: false,<br>
-								value: "Blue"<br>
-							});<br>
-						<br>
-							d = Object.getOwnPropertyDescriptor(myObject,"prop1");<br>
-						<br>
-							alert("The value of prop1 is now: " + myObject.prop1 + ". Is it writeable now? " + d.writable);<br>
+					<pre>
+					<code class="language-js">
+						// data property example
+						var d = Object.getOwnPropertyDescriptor(myObject,"prop1");
+						
+						function updateObjectProps() {
+							
+							Object.defineProperty(myObject, "prop1", {
+								writable: false,
+								value: "Blue"
+							});
+						
+							d = Object.getOwnPropertyDescriptor(myObject,"prop1");
+						
+							alert("The value of prop1 is now: " + myObject.prop1 + ". Is it writeable now? " + d.writable);
 
-						}<br>
-						<br>
-						<strong>// accessor property example</strong><br>
-						var book = { // Create new Object called "book"<br>
-							_year: 2004,<br>
-							edition: 1<br>
-						}<br>
-						<br>
-						Object.defineProperty(book, "year", {<br>
-							get: function() {<br>
-								return this._year;<br>
-							},<br>
-							set: function(newValue) {<br>
-								if (newValue > 2004) {<br>
-									this._year = newValue;<br>
-									this.edition += newValue -2004;<br>
-								}<br>
-							}<br>
-						});<br>
-<br>
-						function updateBookEdition() {<br>
-							book.year = 2006;<br>
-							alert("Updated the year the book was publish. The year of the book is now: " + book.year + ". The edition of the book is now " + book.edition);<br>
-						}<br>
-						&lt;/script&gt;<br>
-					</code><br><br>
+						}
+						
+						// accessor property example
+						var book = { // Create new Object called "book"
+							_year: 2004,
+							edition: 1
+						}
+						
+						Object.defineProperty(book, "year", {
+							get: function() {
+								return this._year;
+							},
+							set: function(newValue) {
+								if (newValue > 2004) {
+									this._year = newValue;
+									this.edition += newValue -2004;
+								}
+							}
+						});
+
+						function updateBookEdition() {
+							book.year = 2006;
+							alert("Updated the year the book was publish. The year of the book is now: " + book.year + ". The edition of the book is now " + book.edition);
+						}
+					</code>
+					</pre><br><br>
 					<script type="text/javascript">
 
 						// data property example
@@ -236,7 +236,7 @@
 				</code>
 				</pre><br><br>
 				<h3>The Constructor Pattern</h3>
-				<p>Constructors create specific types of objects. Instances are create using the <em>new</em> operator. Note: there is no object being explicitly created in the function, and properties and methods are assigned directly onto the <em>this</em> object.</p>
+				<p>Constructors create specific types of objects. Instances are create using the <em>new</em> operator. Note: there is no object being explicitly created in the function, and properties and methods are assigned directly onto the <em>this</em> object. There is no <em>return</em> statement. Constructor functions, by convention, use an uppercase letter for the first letter of the function name.</p>
 				<br>
 				<pre>
 				<code class="language-js">
@@ -264,6 +264,14 @@
 			        alert(person2.constructor == Person);  //true
 			        
 			        alert(person1.sayName == person2.sayName);  //false     
+				</code>
+				</pre><br><br>
+				<h3>The Prototype Pattern</h3>
+				<p>*description here*</p>
+				<br>
+				<pre>
+				<code class="language-js">
+			        // example here  
 				</code>
 				</pre><br><br>
 				<script type="text/javascript">
