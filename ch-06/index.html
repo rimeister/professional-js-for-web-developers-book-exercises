@@ -334,16 +334,18 @@ person4.name = 'Johnny';
 				<br>
 <pre>
 <code class="language-js">
+
 function Boss() {
 }
+
 Boss.prototype = {
-constructor: Boss,
-name: "Doodler",
-age: 29,
-job: "Software Engineer",
-sayName: function() {
-alert(this.name);
-}
+	constructor: Boss,
+	name: "Doodler",
+	age: 29,
+	job: "Software Engineer",
+	sayName: function() {
+		alert(this.name);
+	}
 }
 
 var boss1 = new Boss();
