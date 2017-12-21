@@ -237,6 +237,7 @@
 				</pre><br><br>
 				<h3>The Constructor Pattern</h3>
 				<p>Constructors create specific types of objects. Instances are create using the <em>new</em> operator. Note: there is no object being explicitly created in the function, and properties and methods are assigned directly onto the <em>this</em> object. There is no <em>return</em> statement. Constructor functions, by convention, use an uppercase letter for the first letter of the function name.</p>
+				<p>The trouble with this pattern is that each time the constructor is called, a new copy of the methods in the constructor is stored in memory. So, the instances don't share a reference to the same method(s), they each reference a different instance of the method (they don't reference the same instance of <em>Function</em>). This clutters up the memory, I think. The author says that it doesn't make sense to have two instances of a function that do the same thing.</p>
 				<br>
 				<pre>
 				<code class="language-js">
@@ -267,17 +268,60 @@
 				</code>
 				</pre><br><br>
 				<h3>The Prototype Pattern</h3>
-				<p>*description here*</p>
+				<p>Each <strong>function</strong> is created with a prototype property. The "prototype" is an "object containing properties and methods that should be available to instances of a particular reference type" (p. 184). The prototype is a blueprint for the object to be created once the <strong>constructor</strong> (as discussed in the <em>constructor</em> method) is called. The benefit of using the prototype is that the properties and method are all shared amongst the instances of that reference type.</p>
+				<p>In the constrcutor method, the properties and method information are added in the constructor function. With the prototype pattern, the methods and properties are added to the prototype, outside of the constructor function, as seen below.</p>
+
+				<p><strike>My understanding is that, since the prototype is shared amongst the instances, changing the value of a property (or method) on the prototype would change it on all instances.</strike> I'll give that a try below.</p>
+				<p><strong>Result:</strong> Huh, looks like that is not true. They both keep their own names.</p>
+				<p><strong>Further results: Updating the property value on the prototype updates the value of that property on all instances of that reference type</strong></p>
 				<br>
 				<pre>
-				<code class="language-js">
-			        // example here  
-				</code>
+<code class="language-js">
+function Person() {
+	// Notice that this constructor function is empty.
+}
+
+Person.prototype.name = "Nicholas";
+Person.prototype.age = 29;
+Person.prototype.job = "Software Engineer";
+Person.prototype.sayName = function(){
+	alert(this.name);
+}
+
+// Create a new instance of Person
+var person3 = new Person();
+
+var person4 = new Person();
+
+// See if the function added to the prototype worked
+person3.sayName();
+
+person4.name = 'Johnny';
+
+</code>
 				</pre><br><br>
 				<script type="text/javascript">
-					// JS here
+					function Person() {
+						// Notice that this constructor function is empty.
+					}
+
+					Person.prototype.name = "Nicholas";
+					Person.prototype.age = 29;
+					Person.prototype.job = "Software Engineer";
+					Person.prototype.sayName = function(){
+						alert(this.name);
+					}
+
+					// Create a new instance of Person
+					var person3 = new Person();
+
+					var person4 = new Person();
+
 				</script>
-				<a href="#" onClick="event.preventDefault();">Link text</a> <br>
+				<a href="#" onClick="event.preventDefault();person3.sayName();">See the value of "name" on the person3 instance</a>.<br>
+				<a href="#" onClick="event.preventDefault();person4.name='Johnny';">Change the value of "name" on the person4 instance</a>. Check person3 again, see if they're the same.<br>
+				<a href="#" onClick="event.preventDefault();person4.sayName();">See the value of "name" on the person4 instance</a>. // Result: The value of person3 and person4's <em>name</em> property appear to be unrelated.<br>
+				<a href="#" onClick="event.preventDefault();Person.prototype.name='BossNelson';">Change the value of "name" on the Person prototype</a>. Check person3 again, see if they're the same.<br> // Updating the property value on the prototype updates the value of that property on all instances of that reference type
 			</div>
 			<br>
 			<div>
