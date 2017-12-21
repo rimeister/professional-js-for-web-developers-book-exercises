@@ -273,9 +273,11 @@
 
 				<p><strike>My understanding is that, since the prototype is shared amongst the instances, changing the value of a property (or method) on the prototype would change it on all instances.</strike> I'll give that a try below.</p>
 				<p><strong>Result:</strong> Huh, looks like that is not true. They both keep their own names.</p>
-				<p><strong>Further results: Updating the property value on the prototype updates the value of that property on all instances of that reference type</strong></p>
+				<p><strong>Further results: Updating the property value on the prototype updates the value of that property on all instances of that reference type</strong>. This is discussed on pg: 194: "Changes made to the prototype at any point are immediately reflected on instances, even instances that existed before the change was made."</p>
 
 				<p>"When you add a property to an instance that has the same name as a property on the prototype, you create the property on the instance, which then masks the property on the prototype." So, when you call the property on the instance (e.g., person3.name), it searches the instance and finds the property, and does not continue searching up the chain to prototype. If you want to remove the property from the instance altogether, you can do so with the <em>delete</em> operator.</p>
+
+				<p>According to page 197, the real problem with prototypes occurs "when a property contains a reference value." The problem results from the shared nature of prototypes: Updating a reference value on one instance updates is on all instances.</p>
 				<br>
 				<pre>
 <code class="language-js">
@@ -328,13 +330,14 @@ person4.name = 'Johnny';
 			<br>
 			<div>
 				<h2>Alternate Prototype Syntax</h2>
-				<p>To limit redundancy and visually encapsulate the functionality being added to the prototype, you can assign the properties and methods to the prototype using an object literal. This has become the common way of doing it.</p>
+				<p>To limit redundancy and visually encapsulate the functionality being added to the prototype, you can assign the properties and methods to the prototype using an object literal. This has become the common way of doing it. <strong>But there is one difference:</strong> the constructor property on the prototype no longer points to <em>Boss</em>. This is because we have blown away the old prototype object and replaced it with this new one, instead of just adding to it, as we did in the last example. <em>constructor</em> is the only created automatically on the prototype, and points back to the constructor function that created it. From page 185: "When defining a custom constructor, the prototype gets the <em>constructor</em> property only by default; all other methods are inherited from <em>Object</em>." Apparently, the <em>instanceof</em> operator still works reliably, but you can't rely on the <em>constructor</em> property to tell you which constructor the prototype belongs to. You can assign it back in, if you want, though, as in the example below.</p>
 				<br>
 <pre>
 <code class="language-js">
 function Boss() {
 }
 Boss.prototype = {
+constructor: Boss,
 name: "Doodler",
 age: 29,
 job: "Software Engineer",
@@ -362,6 +365,54 @@ var boss1 = new Boss();
 
 				</script>
 				<a href="#" onClick="event.preventDefault();boss1.sayName();">Click to see value of name on boss1</a>.<br>
+			</div>
+			<br>
+			<div>
+				<h2>Combination Constructor/Prototype Pattern</h2>
+				<p>The author says that this is the most common way to define custom reference types. The constructor defines instance properties, and the prototype defines the methods and shared properties. "With this approach, each instance ends up with its own copy of the instance properties, but they all share reference to methods, conserving memory. This pattern allows arguments to be passed into the constructor as well, effectively combining the best parts of each pattern."</p>
+				<br>
+<pre>
+<code class="language-js">
+
+function Dude(name,age,job) {
+	this.name = name;
+	this.age = age;
+	this.job = job;
+	this.friends = ["Shelby","Court"];
+}
+
+Dude.prototype = {
+	constructor: Dude,
+	sayName: function() {
+		alert(this.name);
+	}
+}
+
+var dude1 = new Dude("Nicholas",29,"Software Engineer");
+var dude2 = new Dude("Greg",27,"Doctor");
+
+</code></pre><br><br>
+				<script type="text/javascript">
+					// JS here
+					function Dude(name,age,job) {
+						this.name = name;
+						this.age = age;
+						this.job = job;
+						this.friends = ["Shelby","Court"];
+					}
+
+					Dude.prototype = {
+						constructor: Dude,
+						sayName: function() {
+							alert(this.name);
+						}
+					}
+
+					var dude1 = new Dude("Nicholas",29,"Software Engineer");
+					var dude2 = new Dude("Greg",27,"Doctor");
+				</script>
+				<a href="#" onClick="event.preventDefault();dude1.sayName();">Click to see dude1's name</a>.<br>
+				<a href="#" onClick="event.preventDefault();dude2.sayName();">Click to see dude2's name</a>.<br>
 			</div>
 			<br>
 			<div>
