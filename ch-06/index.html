@@ -277,7 +277,7 @@
 
 				<p>"When you add a property to an instance that has the same name as a property on the prototype, you create the property on the instance, which then masks the property on the prototype." So, when you call the property on the instance (e.g., person3.name), it searches the instance and finds the property, and does not continue searching up the chain to prototype. If you want to remove the property from the instance altogether, you can do so with the <em>delete</em> operator.</p>
 
-				<p>According to page 197, the real problem with prototypes occurs "when a property contains a reference value." The problem results from the shared nature of prototypes: Updating a reference value on one instance updates is on all instances.</p>
+				<p>According to page 197, the real problem with prototypes occurs "when a property contains a reference value." The problem results from the shared nature of prototypes: Updating a reference value on one instance updates is on all instances. I'll add an example of that below to test that out.</p>
 				<br>
 				<pre>
 <code class="language-js">
@@ -292,15 +292,14 @@ Person.prototype.sayName = function(){
 	alert(this.name);
 }
 
+// example of reference value on prototypes
+Person.prototype.friends = ['Josh','Tony','Mark'];
+
 // Create a new instance of Person
 var person3 = new Person();
+person3.friends.push('Graham');
 
 var person4 = new Person();
-
-// See if the function added to the prototype worked
-person3.sayName();
-
-person4.name = 'Johnny';
 
 </code>
 				</pre><br><br>
@@ -316,8 +315,12 @@ person4.name = 'Johnny';
 						alert(this.name);
 					}
 
+					// example of reference value on prototypes
+					Person.prototype.friends = ['Josh','Tony','Mark'];
+
 					// Create a new instance of Person
 					var person3 = new Person();
+					person3.friends.push('Graham');
 
 					var person4 = new Person();
 
@@ -326,6 +329,8 @@ person4.name = 'Johnny';
 				<a href="#" onClick="event.preventDefault();person4.name='Johnny';">Change the value of "name" on the person4 instance</a>. Check person3 again, see if they're the same.<br>
 				<a href="#" onClick="event.preventDefault();person4.sayName();">See the value of "name" on the person4 instance</a>. // Result: The value of person3 and person4's <em>name</em> property appear to be unrelated.<br>
 				<a href="#" onClick="event.preventDefault();Person.prototype.name='BossNelson';">Change the value of "name" on the Person prototype</a>. Check person3 again, see if they're the same.<br> // Updating the property value on the prototype updates the value of that property on all instances of that reference type
+				<br><br>
+				<a href="#" onClick="event.preventDefault();alert(person4.friends);">Click here to see person4's friends, which I have not explicitly added "Graham" to (I did add it to person3's friends).</a> Indeed, Graham appears in the list, though I don't want him to be. This is the problem with reference values on a prototype. 
 			</div>
 			<br>
 			<div>
@@ -483,6 +488,9 @@ newMang.sayName();
 				<p>Prototype chaining is the main method method of inheritance in ECMAScript. The main idea is to share methods and properties amongst reference types by using the concept of prototypes.</p>
 				<p>Okey doke, gonna give prototype chaining a shot, following the example in the book...</p>
 				<p>Alright, gave the example a try, I'm wrapping my head around it. You assign the prototype of the of "sub-type" reference type to be an <strong>instance</strong> of the parent reference type. So, since that prototype is actually an instance of another reference type, it also points to the prototype used to create that instance. So, if you call a method on the instance, it searches the instance for the method. If it doesn't find it, it searches the prototype (actually an instance of the parent type). If it doesn't find it there, it searches the prototype of that instance. And so on. So, it can just keep looking up the chain of prototypes to find the requested method. That's why, in the example below, you can call <em>getSuperValue (a method from SuperType) on <em>instanceOfSubSub</em> (an instance of SubType).</em></p>
+				<h3>The problem with prototype chaining</h3>
+				<p>As mentioned above under <em><strong>The Prototype Pattern</strong></em>, when an instance gets a property from a prototype and that property contains a <em>reference value</em>, like an array (as opposed to a primitive value, like a number, string, or boolean), any updates to that property on an instance will be reflected in all instances, since they all point to the same array object.</p>
+				<p>Because of this, and an issue with passing in arguments (mentioned on p. 207), prototype chaining is rarely used alone.</p>
 				<br>
 				<pre>
 				<code class="language-js">
@@ -567,6 +575,64 @@ newMang.sayName();
 
 				</script>
 				<a href="#" onClick="event.preventDefault();alert(instanceOfSub.getSuperValue());">Click here to alert(instanceOfSub.getSuperValue());</a> <br>
+			</div>
+			<br>
+			<div>
+				<h2>Constructor Stealing</h2>
+				<p>Because of the aforementioned problems with reference values on prototypes, a pattern called <em>Constructor Stealing</em> was invented. It solves the problem of allowing each instance to have its own reference value properties, like an array, so that when you aler an array on one instance, the array doesn't change on all other instances.</p>
+				<p><strong>Problems with constructor stealing:</strong> Like the constructor pattern (for making new classes/reference types), multiple instances of the same functions end up being created. Additionally, the book says that "methods on the SuperType's prototype are not accessible on the SubType" (p. 208). So, Constructor Stealing is rarely used on its own. </p>
+				<br>
+				<pre>
+				<code class="language-js">
+				    function SuperType(){
+			            this.colors = ["red", "blue", "green"];
+			        }
+
+			        function SubType(){  
+			            //inherit from SuperType
+			            SuperType.call(this);
+			        }
+
+			        var instance1 = new SubType();
+			        instance1.colors.push("black");
+			        alert(instance1.colors);    //"red,blue,green,black"
+			        
+			        var instance2 = new SubType();
+			        alert(instance2.colors);    //"red,blue,green"
+				</code></pre><br><br>
+				<script type="text/javascript">
+
+				    function SuperType(){
+			            this.colors = ["red", "blue", "green"];
+			        }
+
+			        function SubType(){  
+			            //inherit from SuperType
+			            SuperType.call(this);
+			        }
+
+			        var instance1 = new SubType();
+			        instance1.colors.push("black");
+			           
+			        var instance2 = new SubType();
+			            
+
+				</script>
+				<a href="#" onClick="event.preventDefault();alert(instance1.colors); ">See instance1 colours</a>. //"red,blue,green,black"<br>
+				<a href="#" onClick="event.preventDefault();alert(instance2.colors);">See instance1 colours</a>. //"red,blue,green"<br>
+			</div>
+			<br>
+			<div>
+				<h2>Combination Inheritance</h2>
+				<p>content goes here</p>
+				<br>
+				<pre>
+				<code class="language-js">
+				</code></pre><br><br>
+				<script type="text/javascript">
+					// JS here
+				</script>
+				<a href="#" onClick="event.preventDefault();">Link text</a> <br>
 			</div>
 			<br>
 			<div>
