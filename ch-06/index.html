@@ -372,6 +372,7 @@ var boss1 = new Boss();
 			<div>
 				<h2>Combination Constructor/Prototype Pattern</h2>
 				<p>The author says that this is the most common way to define custom reference types. The constructor defines instance properties, and the prototype defines the methods and shared properties. "With this approach, each instance ends up with its own copy of the instance properties, but they all share reference to methods, conserving memory. This pattern allows arguments to be passed into the constructor as well, effectively combining the best parts of each pattern."</p>
+				<p>From page 198: "The hybrid constructor/prototype pattern is the most widely used and accepted practice for defining custom reference types in ECMASscript.  <strong>Generally speaking, this is the default pattern to use for defining reference types.</strong></p>
 				<br>
 <pre>
 <code class="language-js">
@@ -417,6 +418,54 @@ var dude2 = new Dude("Greg",27,"Doctor");
 				</script>
 				<a href="#" onClick="event.preventDefault();dude1.sayName();">Click to see dude1's name</a>.<br>
 				<a href="#" onClick="event.preventDefault();dude2.sayName();">Click to see dude2's name</a>.<br>
+			</div>
+			<br>
+			<div>
+				<h2>Dynamic Prototype Pattern</h2>
+				<p>This pattern seeks to encapsulate all of the information within the constructor, while maintaining the benefits of the constructor/prototype combo pattern. To determine if the <em>prototype</em> needs to be intialized, an <em>if</em> statement checks to see if a method that should be available exists.</p>
+				<br>
+				<pre>
+<code class="language-js">
+function Mang(name,age,job){
+// Properties
+this.name = name;
+this.age = age;
+this.job = job;
+
+// methods
+if (typeof this.sayName != "function") {
+Mang.prototype.sayName = function() {
+alert(this.name);
+};
+}
+}
+
+var newMang = new Mang("Nick",28,"Web Dev");
+var otherMang = new Mang("Steven",26,"App Dev");
+
+newMang.sayName();
+</code></pre><br><br>
+				<script type="text/javascript">
+					function Mang(name,age,job){
+						// Properties
+						this.name = name;
+						this.age = age;
+						this.job = job;
+
+						// methods
+						if (typeof this.sayName != "function") {
+							Mang.prototype.sayName = function() {
+								alert(this.name);
+							};
+						}
+					}
+
+					var newMang = new Mang("Nick",28,"Web Dev");
+					var otherMang = new Mang("Steven",26,"App Dev");
+
+				</script>
+				<a href="#" onClick="event.preventDefault();newMang.sayName();">Click here to run newMang.sayName().<em></em></a> <br>
+				<a href="#" onClick="event.preventDefault();otherMang.sayName();">Click here to run otherMang.sayName().<em></em></a> <br>
 			</div>
 			<br>
 			<div>
