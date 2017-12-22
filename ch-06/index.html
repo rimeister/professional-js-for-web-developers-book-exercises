@@ -423,6 +423,7 @@ var dude2 = new Dude("Greg",27,"Doctor");
 			<div>
 				<h2>Dynamic Prototype Pattern</h2>
 				<p>This pattern seeks to encapsulate all of the information within the constructor, while maintaining the benefits of the constructor/prototype combo pattern. To determine if the <em>prototype</em> needs to be intialized, an <em>if</em> statement checks to see if a method that should be available exists.</p>
+				<p>My thought: I'm not sure that I care to use this method, for now anyways. I think I'm fine with just adding method to the prototype outside of the constructor function.</p>
 				<br>
 				<pre>
 <code class="language-js">
@@ -466,6 +467,105 @@ newMang.sayName();
 				</script>
 				<a href="#" onClick="event.preventDefault();newMang.sayName();">Click here to run newMang.sayName().<em></em></a> <br>
 				<a href="#" onClick="event.preventDefault();otherMang.sayName();">Click here to run otherMang.sayName().<em></em></a> <br>
+			</div>
+			<br>
+			<h2>Quick note: Skipping <em>Parasitic Constructor Pattern</em> and <em>Durable Constructor Pattern</em> for now.</h2>
+			<p>The author notes that the Parasitic Constructor Pattern "should not be used when other patterns work" (p. 200). The Durable Constructor Pattern appears to be useful for keeping data secure in certain instances: "Durable objects are best used in secure environments (those that forbid the use of <em>this</em> and <em>new</em> or to protect data from the rest of the application (as in mashups)" (p. 201). Stick with the combo constructor/prototype pattern for now, I say.</p>
+			<br>
+			<div>
+				<h1>INHERITANCE</h1>
+				<p>The author says that inheritance is "The concept most often discussed in relation to OO [Object Oriented] programming" (p. 201).</p>
+				<p><em>Implementation inheritance</em> is the only type of inheritance supposed by ECMAScript. Some other languages, apparently, have something called <em>Interface Inheritance</em>.</p>
+				<p>In Javascript, Inplementation Inheritance is primarily achieved through <em>prototype chaining</em>.</p>
+			</div>
+			<div>
+				<h2>Prototype Chaining</h2>
+				<p>Prototype chaining is the main method method of inheritance in ECMAScript. The main idea is to share methods and properties amongst reference types by using the concept of prototypes.</p>
+				<p>Okey doke, gonna give prototype chaining a shot, following the example in the book.</p>
+				<br>
+				<pre>
+				<code class="language-js">
+					/************************************/
+					/* So, that was basically the combo constructor/prototype method used for creating a new reference type */
+					/************************************/					
+
+					// SuperType constructor
+					function SuperType() {
+						this.property = true;
+					}
+
+					// SuperType prototype gets a method added to it
+					SuperType.prototype.getSuperValue = function() {
+						return this.property;
+					}
+
+
+					/************************************/
+					/* Create a sub-type reference type */
+					/************************************/
+
+					// SubType constructor
+					function SubType() {
+						this.subproperty = false;
+					}
+
+					/************************************/
+					/** Inherit from SuperType (!!!!!!) */
+					/************************************/
+
+					SubType.prototype = new SuperType; // <--- This is the key
+
+					// SubType prototype gets a method added to it
+					SubType.prototype.getSubValue = function () {
+						return this.subproperty;
+					}
+
+					var instanceOf = new SubType();
+					alert(instanceOf.getSuperValue()); // true
+				</code></pre><br><br>
+				<script type="text/javascript">
+
+
+					/************************************/
+					/* So, that was basically the combo constructor/prototype method used for creating a new reference type */
+					/************************************/					
+
+					// SuperType constructor
+					function SuperType() {
+						this.property = true;
+					}
+
+					// SuperType prototype gets a method added to it
+					SuperType.prototype.getSuperValue = function() {
+						return this.property;
+					}
+
+
+					/************************************/
+					/* Create a sub-type reference type */
+					/************************************/
+
+					// SubType constructor
+					function SubType() {
+						this.subproperty = false;
+					}
+
+					/************************************/
+					/** Inherit from SuperType (!!!!!!) */
+					/************************************/
+
+					SubType.prototype = new SuperType; // <--- This is the key
+
+					// SubType prototype gets a method added to it
+					SubType.prototype.getSubValue = function () {
+						return this.subproperty;
+					}
+
+					var instanceOf = new SubType();
+					// alert(instanceOf.getSuperValue()); // true
+
+				</script>
+				<a href="#" onClick="event.preventDefault();alert(instanceOf.getSuperValue());">Click here to alert(instanceOf.getSuperValue());</a> <br>
 			</div>
 			<br>
 			<div>
