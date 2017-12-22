@@ -481,7 +481,8 @@ newMang.sayName();
 			<div>
 				<h2>Prototype Chaining</h2>
 				<p>Prototype chaining is the main method method of inheritance in ECMAScript. The main idea is to share methods and properties amongst reference types by using the concept of prototypes.</p>
-				<p>Okey doke, gonna give prototype chaining a shot, following the example in the book.</p>
+				<p>Okey doke, gonna give prototype chaining a shot, following the example in the book...</p>
+				<p>Alright, gave the example a try, I'm wrapping my head around it. You assign the prototype of the of "sub-type" reference type to be an <strong>instance</strong> of the parent reference type. So, since that prototype is actually an instance of another reference type, it also points to the prototype used to create that instance. So, if you call a method on the instance, it searches the instance for the method. If it doesn't find it, it searches the prototype (actually an instance of the parent type). If it doesn't find it there, it searches the prototype of that instance. And so on. So, it can just keep looking up the chain of prototypes to find the requested method. That's why, in the example below, you can call <em>getSuperValue (a method from SuperType) on <em>instanceOfSubSub</em> (an instance of SubType).</em></p>
 				<br>
 				<pre>
 				<code class="language-js">
@@ -520,8 +521,8 @@ newMang.sayName();
 						return this.subproperty;
 					}
 
-					var instanceOf = new SubType();
-					alert(instanceOf.getSuperValue()); // true
+					var instanceOfSub = new SubType();
+					alert(instanceOfSub.getSuperValue()); // true
 				</code></pre><br><br>
 				<script type="text/javascript">
 
@@ -561,11 +562,11 @@ newMang.sayName();
 						return this.subproperty;
 					}
 
-					var instanceOf = new SubType();
-					// alert(instanceOf.getSuperValue()); // true
+					var instanceOfSub = new SubType();
+					// alert(instanceOfSub.getSuperValue()); // true
 
 				</script>
-				<a href="#" onClick="event.preventDefault();alert(instanceOf.getSuperValue());">Click here to alert(instanceOf.getSuperValue());</a> <br>
+				<a href="#" onClick="event.preventDefault();alert(instanceOfSub.getSuperValue());">Click here to alert(instanceOfSub.getSuperValue());</a> <br>
 			</div>
 			<br>
 			<div>
